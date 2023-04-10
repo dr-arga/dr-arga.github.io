@@ -42,3 +42,6 @@ async function login(){
     spinner(false)
     console.log(database)
 }
+function logout(){
+    Elem("mainFrame").setAttribute("w3-include-html", "/html/login.html");
+}

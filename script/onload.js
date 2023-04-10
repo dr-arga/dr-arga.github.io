@@ -1,7 +1,7 @@
 function onload(){
     includeHTML()
     setTimeout(HideDiv, 1000)
-    developing(false)
+    developing(true)
 }
 function HideDiv(){
     var j = document.querySelectorAll("#hidden-div > div")

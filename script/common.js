@@ -5,7 +5,11 @@ function developing(bo){
 }
 
 var klinikAPI = "https://script.google.com/macros/s/AKfycbyzJ2kU3ZZXryLNrBFo0jiw-rgdM-R_WIrudW9o7wbrZruBTbfKDsuc3WNQIm9mTJrk/exec"
-var database = {}
+var database = {
+    color:{
+        html: {basecolor:{1:"rgb(18, 18, 83)" , 2:"black"}}
+    }
+}
 function spinner(bo) {
     if (bo) {
       Elem("loader").classList.remove("d-none");
@@ -22,7 +26,6 @@ async function includeHTML(){
         elmnt = z[i];
         file = elmnt.getAttribute("w3-include-html");
         if (file) {
-            console.log(file)
             let response = await fetch(file)
             elmnt.innerHTML = await response.text()
         }

@@ -23,7 +23,9 @@ async function login(){
             if(respon["login"]){
                 database['user'] = respon.login.userdata;
                 database['klinikInfo'] = respon.login.klinikInfo
+                
                 Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
+                
                 spinner(false)
                 return
             } else {
@@ -39,9 +41,16 @@ async function login(){
         }
     });
     await includeHTML()
+    Elem("user-fullname").innerHTML = ""
+    if(database.user.nama){Elem("user-fullname").innerHTML = database.user.nama}
+    var r = document.querySelector(':root');
+    if(database.user.level){r.style.setProperty('--baseColor', database.color.html.basecolor[database.user.level])}
     spinner(false)
     console.log(database)
 }
 function logout(){
+    console.log("Login Out...")
     Elem("mainFrame").setAttribute("w3-include-html", "/html/login.html");
+    includeHTML()
+    spinner(false)
 }

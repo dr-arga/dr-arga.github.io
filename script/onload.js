@@ -1,8 +1,9 @@
 function onload(){
     includeHTML(document.querySelector("body"))
     setTimeout(HideDiv, 1000)
+    // setTimeout(HideDiv, 1000)
     // setTimeout(setEvent_Navigation, 500)
-    developing(false)
+    developing(true)
 }
 function HideDiv(){
     var j = document.querySelectorAll("#hidden-div > div")

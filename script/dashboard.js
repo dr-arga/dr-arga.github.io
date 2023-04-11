@@ -7,7 +7,6 @@ function leftNavShow(bo){
     }
 }
 function NavTo(elem){
-    console.log(elem)
     var name = elem.querySelector(".nav-hidden").innerHTML
     var incl = ""
     if(name == "Home"){incl = "/html/home.html"}

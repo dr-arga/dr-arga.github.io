@@ -1,5 +1,4 @@
 async function login(){
-    // alert(Elem("login-username").value)
     if(Elem("login-username").value == ""){
         alert("Username kosong")
         Elem("login-username").focus()
@@ -10,7 +9,6 @@ async function login(){
         Elem("login-password").focus()
         return
     }
-
     spinner(true)
     console.log("Login trying...")
     await fetch(
@@ -20,14 +18,21 @@ async function login(){
     .then((respon) => respon.json())
     .then((respon) => {
         if (respon.ok) {
+            console.log("respon ok..")
             if(respon["login"]){
-                database['user'] = respon.login.userdata;
-                database['klinikInfo'] = respon.login.klinikInfo
-                
-                Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
-                
-                spinner(false)
-                return
+                if(respon.login.isValid){
+                    database['user'] = respon.login.userdata;
+                    database['klinikInfo'] = respon.login.klinikInfo
+                    Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
+                    
+
+                }
+                else{
+                    alert("Username dan Password salah")
+                    Elem("login-username").focus()
+                    spinner(false)
+                    return    
+                }
             } else {
                 alert("Username dan Password salah")
                 Elem("login-username").focus()
@@ -36,20 +41,23 @@ async function login(){
             }
         }
         else{
+            console.log("respon false..")
             spinner(false)
             return
         }
     });
-    await includeHTML(document.querySelector("body"))
-    Elem("user-fullname").innerHTML = ""
-    if(database.user.nama){Elem("user-fullname").innerHTML = database.user.nama}
-    var r = document.querySelector(':root');
-    if(database.user.level){
-        r.style.setProperty('--baseColor', database.color.html.basecolor[database.user.level])
-        r.style.setProperty('--baseColorActive', database.color.html.baseColorActive[database.user.level])
+    if(database.user){
+        await includeHTML(document.querySelector("body"))
+        Elem("user-fullname").innerHTML = ""
+        if(database.user.nama){Elem("user-fullname").innerHTML = database.user.nama}
+        var r = document.querySelector(':root');
+        if(database.user.level){
+            r.style.setProperty('--baseColor', database.color.html.basecolor[database.user.level])
+            r.style.setProperty('--baseColorActive', database.color.html.baseColorActive[database.user.level])
+        }
+        NavTo(Elem("nav-home"))
+        spinner(false)
     }
-    NavTo(Elem("nav-home"))
-    spinner(false)
     console.log(database)
 }
 function logout(){

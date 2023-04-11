@@ -1,6 +1,12 @@
 function developing(bo){
     if(bo){
-        Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
+        setTimeout(loginDev, 1000)
+        // Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
+    }
+    function loginDev(){
+        Elem("login-username").value = "ikhsan"
+        Elem("login-password").value = "ikhsan"
+        login()
     }
 }
 
@@ -8,8 +14,8 @@ var klinikAPI = "https://script.google.com/macros/s/AKfycbyzJ2kU3ZZXryLNrBFo0jiw
 var database = {
     color:{
         html: {
-            basecolor:{1:"rgb(18, 18, 83)" , 2:"brown"},
-            baseColorActive:{1:"rgb(34, 34, 140)" , 2:"rgb(198, 57, 57)"}
+            basecolor:{1:"rgb(18, 18, 83)" , 2:"purple"},
+            baseColorActive:{1:"rgb(34, 34, 140)" , 2:"rgb(197, 39, 197)"}
         }
     }
 }

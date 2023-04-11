@@ -3,6 +3,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    /* color: rgb(198, 57, 57); */
     /* border: 3px solid red; */
 }
 #left-nav{
@@ -23,6 +24,7 @@
     width: 150px;
 }
 .nav-user > div{
+    margin-top: 25px;
     height: 40px;
     padding: 10px;
     width: 100%;
@@ -31,7 +33,7 @@
 }
 .nav-user > button{
     font-size: 0.8rem;
-    margin: 0 10px;
+    margin: 0 10px 25px 10px;
     width: calc(100% - 20px);
 }
 .nav-close{
@@ -44,6 +46,7 @@
     cursor: pointer;
 }
 .nav-list > i {
+    width: 20px;
     margin: 0 10px;
 }
 .nav-list > div {
@@ -53,6 +56,9 @@
     transition: width 0.2s;
     white-space: nowrap;
 }
+.nav-list.active{
+    background-color: var(--baseColorActive);
+}
 #left-nav:hover > .nav-list > div {
     width: 80px;
 }
@@ -61,7 +67,7 @@
 }
 #central-dashboard{
     margin-left: 40px;
-    width: calc(100vw - 140px);
+    width: calc(100vw - 40px);
     height: 100vh;
     overflow: hidden;
 }
@@ -75,10 +81,12 @@
 }
 @media (max-width: 992px) {
     .nav-close{
+        padding: 10px 40px;
+        background-color: red;
         display: block;
         position: absolute;
-        right: 15px;
-        top:15px;
+        left: 0;
+        top:0;
         font-size: 1.4rem;
     }
     #left-nav{

@@ -8,29 +8,35 @@
             <button class="btn btn-danger" onclick="logout()">Keluar</button>
         </div>
         <div class="nav-close" onclick="leftNavShow(false)">
-            <i class="fa-regular fa-circle-xmark"></i>
+            <i class="fa-solid fa-arrow-left"></i>
         </div>
-        <div class="nav-list">
+        <div class="nav-list" onclick="NavTo(this)" id="nav-home">
             <i class="fa-solid fa-house"></i>
-            <div class="nav-hidden">Dashboard</div>
+            <div class="nav-hidden">Home</div>
         </div>
-        <div class="nav-list">
+        <div class="nav-list" onclick="NavTo(this)">
             <i class="fa-solid fa-user-plus"></i>
             <div class="nav-hidden">Pasien Baru</div>
         </div>
-        <div class="nav-list">
+        <div class="nav-list" onclick="NavTo(this)">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="nav-hidden">Cari</div>
+        </div>
+        <div class="nav-list" onclick="NavTo(this)">
             <i class="fa-solid fa-user-group"></i>
             <div class="nav-hidden">Antrian</div>
         </div>
-        <div class="nav-list">
+        <div class="nav-list" onclick="NavTo(this)">
             <i class="fa-solid fa-print"></i>
             <div class="nav-hidden">Cetak</div>
         </div>
-        <div class="nav-list">
+        <div class="nav-list" onclick="NavTo(this)">
             <i class="fa-solid fa-gear"></i>
             <div class="nav-hidden">Setting</div>
         </div>
     </div>
-    <div id="central-dashboard" class="border">a</div>
-    <div id="antrian-pane">asd</div>
+    <div id="central-dashboard" class="border">
+        <div w3-include-html="" id="mainBox"></div>
+    </div>
+    <!-- <div id="antrian-pane">asd</div> -->
 </div>

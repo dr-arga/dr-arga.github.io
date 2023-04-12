@@ -419,7 +419,8 @@
         flex-direction: column-reverse;
         padding: 0;
     }
-    .home-right > div{padding:0 !important}
+    .home-right div { border-color: burlywood;}
+    .home-right > div {padding:0 !important;}
     .pasien-card{
         display: block;
         position: relative;
@@ -427,6 +428,8 @@
         overflow: hidden;
         border-radius: 0;
         padding: 5px 0px 0 0 !important;
+        background-color: burlywood;
+        color: white;
     }
     .pasien-card > div:nth-child(1){
         display: flex; 
@@ -446,7 +449,11 @@
     .pasien-card > div:nth-child(2) {
         margin-right: 0;
         border: 0;
-        background-color: antiquewhite;
+        background-color: burlywood;
+        padding-top: 0 !important;
+    }
+    .pasien-card > div:nth-child(2) > table th{
+        vertical-align: top;
     }
     .pasien-card > div:nth-child(2) > div{
         display: flex;

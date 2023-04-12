@@ -3,9 +3,9 @@
     flex-direction: row-reverse;
     background-color: rgba(255, 255, 255, 0.7);
 }
-#home-container div{
-    /* border: 1px solid grey; */
-}
+/* #home-container div{
+    border: 1px solid grey;
+} */
 .home-left{
     flex-grow: 1;
     padding: 10px;
@@ -278,10 +278,23 @@
     .home-left{
         padding: 0;
         max-width: 100%;
+        width: calc(100% - 45px);
+        height: 55px;
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        overflow: hidden;
     }
-    .home-left > .antrian-pane, #antrian-page-antrian > .antrian-sub-container{
+    .home-left > .antrian-pane,
+    .home-left > .antrian-pane > .tab-page,
+    #antrian-page-antrian,
+    #antrian-on-container
+    { 
         border-radius: 0;
         border: 0;
+        width: 100%;
+        overflow: hidden;
     }
     .tab.android-hide{
         padding: 0;
@@ -289,84 +302,79 @@
     .tab-page > div{
         padding: 0 !important;
     }
-    .antrian-list-container{
-        padding: 0 !important;
-        flex-grow: 1;
+    .home-left .antrian-pane{
+        box-shadow: 0 0 0 0;
+        background-color: transparent;
     }
-    .antrian-list-item {
-        display: none;
+    #antrian-on-container{
+        height: 55px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
     }
+    #antrian-on-container button{
+        border: 0;
+        font-size: 0.9rem;
+        padding: 3px 5px;
+        border-radius: 5px;
+        height: 50px;
+        color: white;
+    }
+    #antrian-on-container button:nth-child(2){
+        background-color: blueviolet;
+        border-radius: 5px 0 0 5px;
+    }
+    #antrian-on-container button:nth-child(4){
+        background-color:darkorange;
+        margin-right: 5px;
+    }
+    #antrian-on-container button:nth-child(5){
+        background-color: grey;
+        margin-right: 5px;
+    }
+    #antrian-on-container button:nth-child(6){
+        background-color: transparent;
+        width: 50px;
+    }
+    #antrian-page-antrian > .antrian-sub-container:nth-child(1){margin-bottom: 0;}
+    .antrian-list-item {display: none;}
     .antrian-list-item:nth-child(1){
         display: flex;
         align-items: center;
-        border-radius: 0 5px 5px 0 ;
-        padding: 0 5px;
-        height: 100%;
-        margin: 0 !important;
-        background-color: white !important;
-        border:4px solid green;        
-    }
-    .antrian-list-item:nth-child(1) > div:nth-child(1)> div:nth-child(2){
-        width: 140px;
-        font-size: 0.9rem;
-        height: 100%;
-    }
-    .antrian-list-item:nth-child(1) > div:nth-child(1)> div:nth-child(1){display: none;}
-    .antrian-list-item:nth-child(1) > div:nth-child(1)> div:nth-child(3){display: none;}
-    .antrian-list-item:nth-child(1) > div:nth-child(2){display: none;}
-    #antrian-page-antrian > .antrian-sub-container:nth-child(1){margin-bottom: 0;}
-    #antrian-on-container.antrian-sub-container{
-        background-color: black;
-        color:white;
-        display: flex;
+        height: 50px;
+        border-radius: 0px 5px 5px 0!important;
+        margin: 0;
+        margin-right: 5px !important;
         padding: 5px;
+        width: calc(100vw - 260px); 
+        background-color: white !important;
+        border: 3px solid blueviolet;
     }
-    #antrian-on-container.antrian-sub-container > button{
-        border-radius: 5px;
-        padding: 5px 5px;
-        margin: 0 3px;
-        border: 0 !important
+    .antrian-list-item > div{
+        margin-right: 0px !important;
+        overflow: hidden;
     }
-    #antrian-on-container.antrian-sub-container > button:nth-child(2){
-        background-color: transparent;
-        color: white;
-        width: 30px;
-        margin-right: 5px;
-    }
-    #antrian-on-container.antrian-sub-container > button:nth-child(3){
-        border-top-right-radius: 0px !important;
-        border-bottom-right-radius: 0px !important;
-        margin: 0px;
-        background-color: green;
-        color: white;
-        width: 50px;    
-    }
-    #antrian-on-container.antrian-sub-container > button:nth-child(5){
-        background-color: red;
-        color: white;
-    }
-    #antrian-on-container.antrian-sub-container > button:nth-child(6){
-        background-color:cadetblue;
-        color: white;
-    }
-    #antrian-on-container.antrian-sub-container > button > div {
-        font-size: 0.8rem;
-    }
+    .antrian-list-item:nth-child(1) button, .antrian-list-item > div:nth-child(1) > div:nth-child(1),.antrian-list-item > div:nth-child(1) > div:nth-child(3){display: none;}
+    .antrian-list-item > div:nth-child(1) > div:nth-child(2){font-size: 0.8rem !important;}
     .searhing-container, .searhing-container .filter-container > div{
         padding: 0;
     } 
     .searhing-container .filter-container {
         padding: 10px 10px 0 10px;
         display: block;
-        background-color:burlywood;
+        background-color: white;
     }
     .searhing-container .filter-container > div > input{
-        margin-bottom: 5px;
+        margin-bottom: 6px;
+        border-color: var(--baseColor) !important;
     }
     .searhing-container > div:has(.table-container){
         overflow: hidden;
         padding: 0 10px 10px 10px;
-        background-color: burlywood;
+        background-color: white;
+    }
+    .searhing-container .table-container{
+        border: 1px solid var(--baseColor);
     }
     .searhing-container .table-container table{
         background-color: white;
@@ -411,15 +419,15 @@
     }
     .home-right {
         background-color: white;
-        height: calc(100vh - 120px);
+        height: calc(100vh - 55px);
         max-width: 100%;
         width: 100vw;
-        overflow: hidden;
+        overflow: auto;
         display: flex;
         flex-direction: column-reverse;
         padding: 0;
+        overflow-y: auto !important;
     }
-    .home-right div { border-color: burlywood;}
     .home-right > div {padding:0 !important;}
     .pasien-card{
         display: block;
@@ -428,8 +436,9 @@
         overflow: hidden;
         border-radius: 0;
         padding: 5px 0px 0 0 !important;
-        background-color: burlywood;
-        color: white;
+        background-color: white;
+        color: black;
+        border: 1px solid var(--baseColor)
     }
     .pasien-card > div:nth-child(1){
         display: flex; 
@@ -440,6 +449,7 @@
         height: 70px;
         width: 100px;
         flex-grow: 0;
+        display: none;
     }
     #detail-nama{
         font-size: 0.95rem !important;
@@ -449,8 +459,9 @@
     .pasien-card > div:nth-child(2) {
         margin-right: 0;
         border: 0;
-        background-color: burlywood;
-        padding-top: 0 !important;
+        border-top: 1px solid grey;
+        background-color: rgb(243, 242, 242);
+        padding: 10px !important;
     }
     .pasien-card > div:nth-child(2) > table th{
         vertical-align: top;
@@ -479,5 +490,7 @@
     .pasien-card > div:nth-child(3) > button{
         border-radius: 0 !important;
     }
-
+    .pasien-card th.table-sub{
+        padding-top: 0px;
+    }
 }

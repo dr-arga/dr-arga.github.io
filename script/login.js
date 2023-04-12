@@ -25,7 +25,6 @@ async function login(){
                     database['klinikInfo'] = respon.login.klinikInfo
                     Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
                     
-
                 }
                 else{
                     alert("Username dan Password salah")

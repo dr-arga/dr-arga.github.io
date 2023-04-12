@@ -1,7 +1,9 @@
-function developing(bo){
+async function developing(bo){
     if(bo){
-        setTimeout(loginDev, 1000)
+        // setTimeout(loginDev, 1000)
         // Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
+        // await innerHTML(document.querySelector("body"))
+        NavTo(Elem("nav-home"))
     }
     function loginDev(){
         Elem("login-username").value = "ikhsan"

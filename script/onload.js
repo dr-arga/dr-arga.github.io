@@ -1,9 +1,10 @@
 function onload(){
     includeHTML(document.querySelector("body"))
     setTimeout(HideDiv, 1000)
-    // setTimeout(HideDiv, 1000)
+    setTimeout(test, 1000)
     // setTimeout(setEvent_Navigation, 500)
-    developing(true)
+    
+    // developing(true)
 }
 function HideDiv(){
     var j = document.querySelectorAll("#hidden-div > div")
@@ -12,4 +13,7 @@ function HideDiv(){
         j[nJ].classList.add("d-none")
     nJ++
     }
+}
+function test(){
+    Elem("nav-home").click()
 }

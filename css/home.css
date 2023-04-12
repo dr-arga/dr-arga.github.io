@@ -163,8 +163,6 @@
 }
 .pasien-card > div:nth-child(1) > div:nth-child(1) > img{
     height: 100%;
-    background-color: aquamarine;
-    /* width: 150px; */
 }
 .pasien-card > div:nth-child(1) > div:nth-child(2){
     padding: 5px 10px;
@@ -223,15 +221,18 @@
 .searhing-container .filter-container input{
     margin-bottom: 10px;
 }
-.searhing-container .table-container{
+.searhing-container > div:has(.table-container){
     background-color: aliceblue;
     flex-grow: 1;
-    overflow: auto;
+    overflow: hidden;
+}
+.searhing-container .table-container{
     position: relative;
+    overflow: auto;
+    height: 100%;
 }
 .searhing-container table{
     font-size: 0.8rem;
-    
 }
 .searhing-container table thead th{
     background-color: var(--baseColor);
@@ -245,10 +246,28 @@
 .android-show{
     display: none;
 }
+#searching-filter-show+label{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    text-align:center;
+    color: black
+}
+#searching-filter-show:checked + label{
+    border: 0;
+    background-color: red;
+    color: white;
+}
+#searching-filter-show{
+    position: fixed;
+    left: -900px
+}
 @media (max-width: 992px){
     #home-container {
         display: block;
-        /* flex-direction: column; */
     }
     .android-hide{
         display: none;
@@ -285,10 +304,11 @@
         height: 100%;
         margin: 0 !important;
         background-color: white !important;
-        border:2px solid green;        
+        border:4px solid green;        
     }
     .antrian-list-item:nth-child(1) > div:nth-child(1)> div:nth-child(2){
-        width: 100px;
+        width: 140px;
+        font-size: 0.9rem;
         height: 100%;
     }
     .antrian-list-item:nth-child(1) > div:nth-child(1)> div:nth-child(1){display: none;}
@@ -308,7 +328,7 @@
         border: 0 !important
     }
     #antrian-on-container.antrian-sub-container > button:nth-child(2){
-        background-color: blue;
+        background-color: transparent;
         color: white;
         width: 30px;
         margin-right: 5px;
@@ -332,8 +352,65 @@
     #antrian-on-container.antrian-sub-container > button > div {
         font-size: 0.8rem;
     }
+    .searhing-container, .searhing-container .filter-container > div{
+        padding: 0;
+    } 
+    .searhing-container .filter-container {
+        padding: 10px 10px 0 10px;
+        display: block;
+        background-color:burlywood;
+    }
+    .searhing-container .filter-container > div > input{
+        margin-bottom: 5px;
+    }
+    .searhing-container > div:has(.table-container){
+        overflow: hidden;
+        padding: 0 10px 10px 10px;
+        background-color: burlywood;
+    }
+    .searhing-container .table-container table{
+        background-color: white;
+    }
+    .filter-container > div:nth-child(1){
+        position: relative;
+    }
+    .filter-container > div:nth-child(1) > input:nth-child(1){
+        width: calc(100% - 40px);
+    }
+    .filter-container:has(div > #searching-filter-show:checked) input:nth-child(2){
+        max-height: 100px !important;
+        min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
+        padding: 0.25rem 0.5rem;
+        border: 1px;
+        margin-bottom: 10px;
+    }
+    .filter-container:has(div > #searching-filter-show:checked) > div:nth-child(2) > input:nth-child(1){
+        max-height: 100px !important;
+        min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
+        padding: 0.25rem 0.5rem;
+        border: 1px;
+        margin-bottom: 10px;
+    }
+    .filter-container:has(div > #searching-filter-show) input:nth-child(2){
+        max-height: 0px !important;
+        min-height: 0px !important;
+        padding:0;
+        overflow: hidden;
+        border: 0px;
+        margin-bottom: 0;
+        transition: margin-bottom 0.3s, max-height 0.3s, min-height 0.3s, padding 0.1s, border 0.3s ;
+    }
+    .filter-container:has(div > #searching-filter-show) > div:nth-child(2) > input:nth-child(1){
+        max-height: 0px !important;
+        min-height: 0px !important;
+        padding:0;
+        overflow: hidden;
+        border: 0px;
+        margin-bottom: 0;
+        transition: margin-bottom 0.3s, max-height 0.3s, min-height 0.3s, padding 0.1s, border 0.3s ;
+    }
     .home-right {
-        background-color: aqua;
+        background-color: white;
         height: calc(100vh - 120px);
         max-width: 100%;
         width: 100vw;
@@ -342,61 +419,58 @@
         flex-direction: column-reverse;
         padding: 0;
     }
-    .searhing-container{
-    }
-    .searhing-container, .searhing-container .filter-container > div{
-        padding: 0;
-    } 
-    .searhing-container .filter-container {
-        padding: 10px;
+    .home-right > div{padding:0 !important}
+    .pasien-card{
         display: block;
-        background-color:burlywood;
-    }
-    .searhing-container .filter-container > div > input{
-        margin-bottom: 5px;
-    }
-    .searhing-container .table-container{
-        padding: 0 10px;
-        background-color: burlywood;
-    }
-    .searhing-container .table-container table{
-        background-color: white;
-    }
-    #searching-filter-show{
-        position: fixed;
-        left: 900px
-    }
-    .filter-container > div:nth-child(1){
         position: relative;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 0;
+        padding: 5px 0px 0 0 !important;
     }
-    .filter-container > div:nth-child(1) > input:nth-child(1){
-        width: calc(100% - 40px);
+    .pasien-card > div:nth-child(1){
+        display: flex; 
+        flex-direction: row;
+        width: calc(100% - 70px);
     }
-    #searching-filter-show+label{
+    .pasien-card > div:nth-child(1) > div:nth-child(1){
+        height: 70px;
+        width: 100px;
+        flex-grow: 0;
+    }
+    #detail-nama{
+        font-size: 0.95rem !important;
+    }
+    .pasien-card > div:nth-child(1) th {display: none;}
+    .pasien-card > div:nth-child(1) td {font-size: 0.8rem;}
+    .pasien-card > div:nth-child(2) {
+        margin-right: 0;
+        border: 0;
+        background-color: antiquewhite;
+    }
+    .pasien-card > div:nth-child(2) > div{
+        display: flex;
+    }
+    .pasien-card > div:nth-child(2) > div table{
+        flex-grow: 1;
+    }
+    .pasien-card > div:nth-child(2) > div th:nth-child(1){
+        font-size: 0.9rem;
+    }
+    .pasien-card > div:nth-child(2) tbody > tr:nth-child(2) > th, .pasien-card > div:nth-child(2) tbody > tr:nth-child(3) > th{
+        font-size: 0.7rem !important
+    }
+    .pasien-card > div:nth-child(2) tbody > tr:nth-child(2) > td, .pasien-card > div:nth-child(2) tbody > tr:nth-child(3) > td{
+        font-size: 0.8rem !important
+    }
+    .pasien-card > div:nth-child(3){
         position: absolute;
         top: 0;
         right: 0;
-        width: 30px;
-        height: 30px;
-        border: 1px solid black;
-        text-align:center;
-        color: grey
+        width: 70px;
     }
-    #searching-filter-show:checked + label{
-        border: 0;
-        background-color: greenyellow;
-        color: red;
+    .pasien-card > div:nth-child(3) > button{
+        border-radius: 0 !important;
     }
-    .filter-container:has(div > #searching-filter-show:checked) input:nth-child(2){
-        display: block;
-    }
-    .filter-container:has(div > #searching-filter-show:checked) > div:nth-child(2) > input:nth-child(1){
-        display: block;
-    }
-    .filter-container:has(div > #searching-filter-show) input:nth-child(2){
-        display: none;
-    }
-    .filter-container:has(div > #searching-filter-show) > div:nth-child(2) > input:nth-child(1){
-        display: none;
-    }
+
 }

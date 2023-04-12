@@ -343,6 +343,60 @@
         padding: 0;
     }
     .searhing-container{
+    }
+    .searhing-container, .searhing-container .filter-container > div{
         padding: 0;
+    } 
+    .searhing-container .filter-container {
+        padding: 10px;
+        display: block;
+        background-color:burlywood;
+    }
+    .searhing-container .filter-container > div > input{
+        margin-bottom: 5px;
+    }
+    .searhing-container .table-container{
+        padding: 0 10px;
+        background-color: burlywood;
+    }
+    .searhing-container .table-container table{
+        background-color: white;
+    }
+    #searching-filter-show{
+        position: fixed;
+        left: 900px
+    }
+    .filter-container > div:nth-child(1){
+        position: relative;
+    }
+    .filter-container > div:nth-child(1) > input:nth-child(1){
+        width: calc(100% - 40px);
+    }
+    #searching-filter-show+label{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        border: 1px solid black;
+        text-align:center;
+        color: grey
+    }
+    #searching-filter-show:checked + label{
+        border: 0;
+        background-color: greenyellow;
+        color: red;
+    }
+    .filter-container:has(div > #searching-filter-show:checked) input:nth-child(2){
+        display: block;
+    }
+    .filter-container:has(div > #searching-filter-show:checked) > div:nth-child(2) > input:nth-child(1){
+        display: block;
+    }
+    .filter-container:has(div > #searching-filter-show) input:nth-child(2){
+        display: none;
+    }
+    .filter-container:has(div > #searching-filter-show) > div:nth-child(2) > input:nth-child(1){
+        display: none;
     }
 }

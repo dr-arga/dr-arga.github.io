@@ -128,12 +128,12 @@
         width: 100vw;
         height: calc(100vh - 55px);
         overflow: hidden;
-        background-color: bisque;
+        /* background-color: bisque; */
     }
     #dashboard{
         height: 100vh;
         overflow: hidden;
-        background-color: brown;
+        /* background-color: brown; */
         /* display: none; */
     }
     #antrian-pane{

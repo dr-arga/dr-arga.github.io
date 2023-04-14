@@ -4,8 +4,8 @@ body {
     background-color: antiquewhite;
 }
 html {
-height: -webkit-fill-available;
-overflow-y: hidden;
+    height: -webkit-fill-available;
+    overflow-y: hidden;
 }
 * {
 box-sizing: border-box;

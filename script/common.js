@@ -1,17 +1,3 @@
-async function developing(bo){
-    if(bo){
-        // setTimeout(loginDev, 1000)
-        // Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
-        // await innerHTML(document.querySelector("body"))
-        NavTo(Elem("nav-home"))
-    }
-    function loginDev(){
-        Elem("login-username").value = "ikhsan"
-        Elem("login-password").value = "ikhsan"
-        login()
-    }
-}
-
 var klinikAPI = "https://script.google.com/macros/s/AKfycbyzJ2kU3ZZXryLNrBFo0jiw-rgdM-R_WIrudW9o7wbrZruBTbfKDsuc3WNQIm9mTJrk/exec"
 var database = {
     color:{
@@ -31,15 +17,31 @@ function spinner(bo) {
 function Elem(id) {
     return document.getElementById(id);
 }
-async function includeHTML(elem){
-    // console.log(elem)
-    var z = elem.getElementsByTagName("*");
-    for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        file = elmnt.getAttribute("w3-include-html");
-        if (file) {
-            let response = await fetch(file)
-            elmnt.innerHTML = await response.text()
-        }
+async function includeHTMLSingle(target){
+    let response = await fetch(target.getAttribute("w3-include-html"))
+    target.innerHTML = await response.text()
+}
+async function includeHTML(parent){
+    var z = parent.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            file = elmnt.getAttribute("w3-include-html");
+            if (file) {
+                let response = await fetch(file)
+                elmnt.innerHTML = await response.text()
+            }
     }
 }
+
+// async function includeHTML(elem){
+//     // console.log(elem)
+//     var z = elem.getElementsByTagName("*");
+//     for (i = 0; i < z.length; i++) {
+//         elmnt = z[i];
+//         file = elmnt.getAttribute("w3-include-html");
+//         if (file) {
+//             let response = await fetch(file)
+//             elmnt.innerHTML = await response.text()
+//         }
+//     }
+// }

@@ -1,0 +1,307 @@
+<div class="w-100 h-100 overflow-y-auto" id="home-container">
+    <div class="home-left">
+        <div class="antrian-pane">
+            <div class="android-hide"><i class="fa-solid fa-user-group"></i> List Antrian</div>
+            <div class="filter android-hide">
+                <input type="date" class="form-control form-control-sm" id="login-password" placeholder="Tanggal"
+                    autocomplete="off">
+            </div>
+            <div class="tab android-hide">
+                <div onclick="antrianPaneTab(this)" for="antrian-page-antrian" class="active android-hide">Antrian</div>
+                <div onclick="antrianPaneTab(this)" for="antrian-page-reservasi" class="android-hide">Reservasi <span
+                        class="badge bg-danger">0</span></div>
+            </div>
+            <div class="tab-page">
+                <div id="antrian-page-antrian">
+                    <div id="antrian-on-container" class="antrian-sub-container">
+                        <div class="android-hide">Dalam Antrian</div>
+                        <button class="android-show">
+                            <div>Antri</div> <span class="badge bg-secondary">0</span>
+                        </button>
+                        <div class="antrian-list-container">
+                            <div class="antrian-list-item">
+                                <div>
+                                    <div>13/1/2022 13.00</div>
+                                    <div>Mahensd lkj dasd,mn wadlkjasd lkj alksj </div>
+                                    <div>23M001</div>
+                                </div>
+                                <div>
+                                    <button>action</button>
+                                </div>
+                            </div>
+                            <div class="antrian-list-item">
+                                <div>
+                                    <div>13/1/2022 13.00</div>
+                                    <div>Mahensd lkj dasd,mn wadlkjasd</div>
+                                    <div>23M001</div>
+                                </div>
+                                <div>
+                                    <button>action</button>
+                                </div>
+                            </div>
+                            <div class="antrian-list-item">
+                                <div>
+                                    <div>13/1/2022 13.00</div>
+                                    <div>Mahensd lkj dasd,mn wadlkjasd</div>
+                                    <div>23M001</div>
+                                </div>
+                                <div>
+                                    <button>action</button>
+                                </div>
+                            </div>
+                            <div class="antrian-list-item">
+                                <div>
+                                    <div>13/1/2022 13.00</div>
+                                    <div>Mahensd lkj dasd,mn wadlkjasd</div>
+                                    <div>23M001</div>
+                                </div>
+                                <div>
+                                    <button>action</button>
+                                </div>
+                            </div>
+                            <div class="antrian-list-item">
+                                <div>
+                                    <div>13/1/2022 13.00</div>
+                                    <div>Mahensd lkj dasd,mn wadlkjasd</div>
+                                    <div>23M001</div>
+                                </div>
+                                <div>
+                                    <button>action</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="android-show">
+                            <div>Selesai</div> <span class="badge bg-secondary">0</span>
+                        </button>
+                        <button class="android-show">
+                            <div>Reservasi</div> <span class="badge bg-secondary">0</span>
+                        </button>
+                        <button class="android-show"><i class="fa-solid fa-maximize"></i></button>
+                    </div>
+                    <div id="antrian-selesai-container" class="antrian-sub-container android-hide">
+                        <div>Selesai Antrian</div>
+                        <div class="antrian-list-container">
+                            <div class="antrian-list-item">
+                                <div>
+                                    <div>13/1/2022 13.00</div>
+                                    <div>Mahensd lkj dasd,mn wadlkjasd</div>
+                                    <div>23M001</div>
+                                </div>
+                                <div>
+                                    <button>action</button>
+                                </div>
+                            </div>
+                            <div class="antrian-list-item">
+                                <div>
+                                    <div>13/1/2022 13.00</div>
+                                    <div>Mahensd lkj dasd,mn wadlkjasd</div>
+                                    <div>23M001</div>
+                                </div>
+                                <div>
+                                    <button>action</button>
+                                </div>
+                            </div>
+                            <div class="antrian-list-item">
+                                <div>
+                                    <div>13/1/2022 13.00</div>
+                                    <div>Mahensd lkj dasd,mn wadlkjasd</div>
+                                    <div>23M001</div>
+                                </div>
+                                <div>
+                                    <button>action</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="antrian-page-reservasi" class="d-none">2</div>
+            </div>
+        </div>
+    </div>
+    <div class="home-right">
+        <div>
+            <div class="pasien-card">
+                <div>
+                    <div>
+                        <img src="https://www.kindpng.com/picc/m/269-2697881_computer-icons-user-clip-art-transparent-png-icon.png"
+                            class="rounded mx-auto d-block" alt="...">
+                    </div>
+                    <div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Nama</th>
+                                    <td id="detail-nama">Argadia yunnlkj lkajsd lkj alkj asdlkj </td>
+                                </tr>
+                                <tr>
+                                    <th>TTL</th>
+                                    <td>12 Juni 2021</td>
+                                </tr>
+                                <tr>
+                                    <th>Usia</th>
+                                    <td>1th 2bln 3hr</td>
+                                </tr>
+                                <tr>
+                                    <th>Kelamin</th>
+                                    <td>Lelaki</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Alamat</th>
+                                <td>lkj lkj alskdj lk qwldn lkj aldwmn a,mn wda</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th colspan="2" class="table-sub">Ayah</th>
+                                </tr>
+                                <tr>
+                                    <th>Nama</th>
+                                    <td>Sujoko Hadi</td>
+                                </tr>
+                                <tr>
+                                    <th>Pekerjaan</th>
+                                    <td>Karyawan Swasta</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th colspan="2" class="table-sub">Ibu</th>
+                                </tr>
+                                <tr>
+                                    <th>Nama</th>
+                                    <td>Sujoko Hadi</td>
+                                </tr>
+                                <tr>
+                                    <th>Pekerjaan</th>
+                                    <td>Karyawan Swasta</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary mb-2">Daftar Antrian</button>
+                    <button class="btn btn-primary mb-2">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div class="searhing-container">
+            <div class="android-hide"><i class="fa-solid fa-magnifying-glass"></i> Search</div>
+            <div class="filter-container">
+                <div>
+                    <input type="text" class="form-control form-control-sm" id="login-password" placeholder="Nomor RM"
+                        autocomplete="off">
+                    <input type="text" class="form-control form-control-sm" id="login-password"
+                        placeholder="Nama Pasien" autocomplete="off">
+                    <input type="checkbox" label name="" id="searching-filter-show">
+                    <label for="searching-filter-show" id="searching-filter-show-label"><i
+                            class="fa-solid fa-filter"></i></label>
+                </div>
+                <div>
+                    <input type="text" class="form-control form-control-sm" id="login-password"
+                        placeholder="Nama Orangtua" autocomplete="off">
+                    <input type="text" class="form-control form-control-sm" id="login-password" placeholder="Alamat"
+                        autocomplete="off">
+                </div>
+            </div>
+            <div>
+                <div class="table-container">
+                    <table class="table table-sm table-striped">
+                        <thead class="text-center">
+                            <tr>
+                                <th scope="col">No RM</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">TTL</th>
+                                <th scope="col">Ayah</th>
+                                <th scope="col">Ibu</th>
+                                <th scope="col">Alamat</th>
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            <tr>
+                                <td>23M001</td>
+                                <td>Argadia Yuniasiu ralkj rwrijasd</td>
+                                <td>
+                                    <div>12 Jun 2023</div>
+                                    <div>15 hari</div>
+                                </td>
+                                <td>
+                                    <div>Suhadi</div>
+                                    <div>ABRI</div>
+                                </td>
+                                <td>
+                                    <div>Siti Hajsij</div>
+                                    <div>-</div>
+                                </td>
+                                <td>Sukabumoer, RT01, 012, Buppasd Boyoasdl, Jasdwd</td>
+                            </tr>
+                            <tr>
+                                <td>23M001</td>
+                                <td>Argadia Yuniasiu ralkj rwrijasd</td>
+                                <td>
+                                    <div>12 Jun 2023</div>
+                                    <div>15 hari</div>
+                                </td>
+                                <td>
+                                    <div>Suhadi</div>
+                                    <div>ABRI</div>
+                                </td>
+                                <td>
+                                    <div>Siti Hajsij</div>
+                                    <div>-</div>
+                                </td>
+                                <td>Sukabumoer, RT01, 012, Buppasd Boyoasdl, Jasdwd</td>
+                            </tr>
+                            <tr>
+                                <td>23M001</td>
+                                <td>Argadia Yuniasiu ralkj rwrijasd</td>
+                                <td>
+                                    <div>12 Jun 2023</div>
+                                    <div>15 hari</div>
+                                </td>
+                                <td>
+                                    <div>Suhadi</div>
+                                    <div>ABRI</div>
+                                </td>
+                                <td>
+                                    <div>Siti Hajsij</div>
+                                    <div>-</div>
+                                </td>
+                                <td>Sukabumoer, RT01, 012, Buppasd Boyoasdl, Jasdwd</td>
+                            </tr>
+                            <tr>
+                                <td>23M001</td>
+                                <td>Argadia Yuniasiu ralkj rwrijasd</td>
+                                <td>
+                                    <div>12 Jun 2023</div>
+                                    <div>15 hari</div>
+                                </td>
+                                <td>
+                                    <div>Suhadi</div>
+                                    <div>ABRI</div>
+                                </td>
+                                <td>
+                                    <div>-</div>
+                                    <div>-</div>
+                                </td>
+                                <td>Sukabumoer, RT01, 012, Buppasd Boyoasdl, Jasdwd</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

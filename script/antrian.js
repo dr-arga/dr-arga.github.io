@@ -1,9 +1,9 @@
-function antrianPaneTab(elem){
-    var tabs = document.querySelectorAll(".home-left > .antrian-pane > .tab > div")
-    tabs.forEach((p)=>{
-        p.classList.remove("active")
-        Elem(p.getAttribute("for")).classList.add('d-none')
+function antrianNav(elem){
+    document.querySelectorAll(".antrian-nav-btn").forEach((p)=>{
+        p.classList.remove('active');
+        var j = p.getAttribute('for');
+        Elem("antrian-nav-" + j).classList.remove('active')
     })
     elem.classList.add("active")
-    Elem(elem.getAttribute("for")).classList.remove("d-none")
+    Elem("antrian-nav-" + elem.getAttribute('for')).classList.add('active')
 }

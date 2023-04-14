@@ -127,7 +127,14 @@
         margin-left: 0;
         width: 100vw;
         height: calc(100vh - 55px);
-        overflow: auto;
+        overflow: hidden;
+        background-color: bisque;
+    }
+    #dashboard{
+        height: 100vh;
+        overflow: hidden;
+        background-color: brown;
+        /* display: none; */
     }
     #antrian-pane{
         display: none;

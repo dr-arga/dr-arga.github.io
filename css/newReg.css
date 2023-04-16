@@ -1,0 +1,89 @@
+.separator{
+    width: 100%;
+    border: 1px solid grey;
+    margin: 20px 0
+}
+.newReg-container{
+    height: 100%; width: 100%;
+    display: flex;
+    overflow: hidden;
+    padding: 10px;
+    overflow: hidden;
+}
+.newReg-card{
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+    box-shadow: 5px 6px 8px -1px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+}
+.home-modal-close{
+    position: absolute; border-top-right-radius: 10px;
+    top: 0; right: 0; width: 30px; height: 30px;
+    display: flex; justify-content: center; align-items: center;
+    background-color: red; color: white; border: 0;
+}
+.newReg-header{
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    background-color: var(--baseColor);
+    color: white
+}
+.newReg-body-container{flex-grow: 1; overflow: hidden;}
+.newReg-body{height: 100%; width:100%; overflow-y: auto; padding: 20px;}
+
+.newReg-body div{
+    /* border: 1px solid wheat */
+}
+.newReg-body label{
+    font-size: 0.8rem;
+    margin-bottom: 0;
+}
+.newReg-body .input-group button{
+    font-size: 0.8rem;
+}
+.newReg-body input{
+    font-size: 0.8rem;
+}
+.ttl-container:has(#newreg-manual-ttl) > .ttl-manual-container{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+.ttl-container:has(#newreg-manual-ttl:checked) > .ttl-manual-container{
+    max-height: 200px;
+}
+.newReg-title-1{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.newReg-title-2{
+    font-size: 0.8rem;
+    font-weight: bold;
+    width: 40px;
+}
+.input-deskripsi{
+    position: relative;
+}
+.input-deskripsi>div{
+    font-size: 0.5rem;
+    transform: translateY(-10px);
+    position: absolute;
+}
+@media (max-width: 992px){
+    .newReg-container{
+        padding: 0;
+    }
+    .newReg-card{
+        border-radius: 0;
+    }
+    .home-modal-close{
+        border-top-right-radius: 0;
+    }
+    
+}

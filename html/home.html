@@ -1,5 +1,4 @@
 <div class="" id="home-container">
-
     <div class="home-pasien-container">
         <div class="pasien-card">
             <div>
@@ -37,19 +36,26 @@
             <div class="android-hide">Cari Pasien</div>
             <div class="home-search-filter-container">
                 <div class="d-flex">
-                    <input type="text" class="form-control form-control-sm mb-1 me-2 border-1 border-primary"
+                    <input type="text" oninput="noRMMasking(this)"
+                        class="home-search-filter form-control form-control-sm mb-1 me-2 border-1 border-primary"
                         id="login-password" placeholder="Nomor RM" autocomplete="off">
                     <input type="checkbox" class="btn-check" label name="" id="searching-filter-show">
                     <label for="searching-filter-show" id="searching-filter-show-label"
                         class="btn btn-outline-primary me-1 mb-1"><i class="fa-solid fa-filter"></i></label>
-                    <button class="btn btn-primary mb-1"><i class="fa-solid fa-user-plus"></i></button>
+                    <button class="btn btn-primary me-1 mb-1" onclick="homeSearchFilterReset()"><i
+                            class="fa-solid fa-arrows-rotate"></i></button>
+                    <button class="btn btn-primary mb-1" onclick="NewPatient()"><i
+                            class="fa-solid fa-user-plus"></i></button>
                 </div>
                 <div class="d-flex flex-column" id="advance-filter">
-                    <input type="text" class="form-control form-control-sm mb-1 border-1 border-primary"
+                    <input type="text"
+                        class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary"
                         id="login-password" placeholder="Nama Pasien" autocomplete="off">
-                    <input type="text" class="form-control form-control-sm mb-1 border-1 border-primary"
+                    <input type="text"
+                        class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary"
                         id="login-password" placeholder="Nama Orangtua" autocomplete="off">
-                    <input type="text" class="form-control form-control-sm mb-1 border-1 border-primary"
+                    <input type="text"
+                        class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary"
                         id="login-password" placeholder="Alamat" autocomplete="off">
                 </div>
             </div>
@@ -178,8 +184,10 @@
             </div>
         </div>
     </div>
-    <div class="home-middle-container">21213kjh asd</div>
-    <div class="home-antrian-container bg-secondary">
+    <div w3-include-html="" class="include-HTML" id="home-middle-container"></div>
+    <div class="home-antrian-container notFull bg-secondary">
+        <button class="antrian-modal-close" onclick="homeFS(false)"><i class="fa-solid fa-arrow-right"></i></button>
+        <div class="antrian-head-container">Daftar Antrian</div>
         <div class="antrian-date-container p-2"><input class="form-control" type="date" name="" id="antrian-date"></div>
         <div class="antrian-nav-btn-container">
             <div onclick="antrianNav(this)" for="antri" class="antrian-nav-btn active">Antri <span>1</span></div>
@@ -268,4 +276,6 @@
         </div>
     </div>
 </div>
+<div id="home-modal" class="modal-hidden">
+    <div id="home-modal-includes" w3-include-html="" class="include-HTML"></div>
 </div>

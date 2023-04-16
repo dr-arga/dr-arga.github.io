@@ -33,7 +33,7 @@
 }
 .pasien-card>div:nth-child(1)>div:nth-child(1){
     height: 40px;
-    width: 35px;
+    width: calc(100% - 250px);
     background-color: coral;
     margin-right: 10px;
 }
@@ -140,7 +140,7 @@ div:has(#searching-filter-show:checked) + #advance-filter{
 .home-search-table-container td:nth-child(3)>div{width: 110px;}
 .home-search-table-container td:nth-child(4)>div{width: 60px; text-align: center;}
 .home-search-table-container td:nth-child(5)>div, .home-search-table-container td:nth-child(6)>div{width: 50px;}
-.home-middle-container{
+#home-middle-container{
     flex-grow: 1;
 }
 .home-antrian-container{
@@ -222,7 +222,22 @@ div:has(#searching-filter-show:checked) + #advance-filter{
     float: right;
     font-size: 0.8rem;
 }
+.antrian-head-container{
+    padding: 20px 0;
+    text-align: center;
+    background-color: var(--baseColor);
+    color: white;
+    height: 64px;
+    white-space: nowrap;
+    display: block;
+}
+.antrian-modal-close{
+    display: none;
+}
+.antrian-list-item {overflow: hidden;}
 
+#home-modal{display: none;}
+#home-modal.modal-hidden{display: none;}
 @media (max-width: 992px){
     #home-container{
         width: 100vw;
@@ -231,7 +246,7 @@ div:has(#searching-filter-show:checked) + #advance-filter{
         display: block;
     }
     .home-pasien-container{
-        max-width: max-content;
+        max-width: 100%;
         height: 100%;
         overflow: hidden;
     }
@@ -248,7 +263,6 @@ div:has(#searching-filter-show:checked) + #advance-filter{
         position: relative;
     }
     .pasien-card>div:nth-child(1)>div:nth-child(1){
-        width: 60px;
         background-color: coral;
         margin-right: 10px;
     }   
@@ -324,13 +338,93 @@ div:has(#searching-filter-show:checked) + #advance-filter{
     .home-search-table-container td:nth-child(4)>div{width: 60px; text-align: center;}
     .home-search-table-container td:nth-child(5)>div, .home-search-table-container td:nth-child(6)>div{width: 50px;}
 
-
-
-    .home-middle-container{
+    #home-middle-container{
         flex-grow: 0;
         display: none;
     }
-    .home-antrian-container{
-        display: none;
+
+    .antrian-modal-close{
+        color: white;
+        background-color: red;
+        position: absolute;
+        top: 0; left:0;
+        height: 55px;
+        border: 0;
+        width: 100px;
+        height: 64px;
+        display: block;
     }
+    .home-antrian-container{
+        max-width: 100vw;
+        top: 0; right: 0;
+        position: fixed;
+        height: 100vh;
+        max-width: 100vw;
+        overflow: hidden;
+        width: 100vw;
+        transition: max-width 0.3s;
+        z-index: 10;
+    }
+    .antrian-list-item > div:nth-child(2){
+        width: calc(100% - 70px);
+    }
+
+    .notFull.home-antrian-container{
+        top: 0; right: 0;
+        position: fixed;
+        height: 100vh;
+        max-width: 0vw;
+        overflow: hidden;
+        width: 100vw;
+        /* transition: max-width 1s; */
+        z-index: 10;
+    }
+    .notFull.home-antrian-container .antrian-nav-btn-container {
+        position: fixed;
+        height: 55px;
+        top: 0; 
+        right:0;
+        padding: 3px ;
+    }
+    .notFull.home-antrian-container .antrian-nav-btn{
+        background-color: white;
+        border-radius: 0;
+        margin-left: 0;
+        padding: 0 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--baseColor);
+        width: 80px
+    }
+    .notFull.home-antrian-container .antrian-nav-btn.active{
+        background-color: white;
+        color: black
+    }
+    #home-modal{
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color:antiquewhite;
+        height: 100vh;
+        width: 100vw;
+        z-index: 10;
+    }
+    #home-modal-includes{
+        height: 100%;
+        width: 100%;
+    }
+    .home-modal-close{
+        position: absolute;
+        top: 0;
+        right:0;
+        width: 50px;
+        height: 50px;
+        border: 0;
+        background-color: red;
+        color: white;
+    }
+    
 }

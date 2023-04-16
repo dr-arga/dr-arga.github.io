@@ -7,5 +7,6 @@ async function developing(bo){
         Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
         await includeHTML(document.querySelector("body"))
         Elem("nav-home").click()
+        setTimeout(NewPatient,1000)
     }
 }

@@ -32,16 +32,18 @@ async function includeHTML(parent){
             }
     }
 }
-
-// async function includeHTML(elem){
-//     // console.log(elem)
-//     var z = elem.getElementsByTagName("*");
-//     for (i = 0; i < z.length; i++) {
-//         elmnt = z[i];
-//         file = elmnt.getAttribute("w3-include-html");
-//         if (file) {
-//             let response = await fetch(file)
-//             elmnt.innerHTML = await response.text()
-//         }
-//     }
-// }
+function reMasking(elem, type){
+    if(type == "noRM"){
+        var maskOptions = {
+            mask: '00-a-0000',
+            prepare: function (str) {
+                return str.toUpperCase();
+              }
+        };
+        IMask(elem, maskOptions);
+    }
+    if(type == "upperCase"){
+        var text = elem.value
+        elem.value = text.toString().toUpperCase()
+    }
+}

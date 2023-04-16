@@ -1,1 +1,123 @@
-PASIEN BARU
+<div class="newReg-container">
+    <div class="newReg-card">
+        <button class="home-modal-close" onclick="closeNewPatientModal()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="newReg-header">
+            Register Pasien Baru
+        </div>
+        <div class="newReg-body-container">
+            <div class="newReg-body">
+                <div class="row m-0">
+                    <div class="col-md-5 col-12 mb-4">
+                        <label for="newReg-norm" class="form-label">Nomor RM</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="00-a-0000" aria-label="Nomor RM"
+                                oninput="reMasking(this, 'noRM')" aria-describedby="basic-addon1">
+                            <button class="input-group-text btn btn-primary" id="">Generate</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0">
+                    <div class="col-md-6 col-12">
+                        <label for="newReg-nama" class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-control mb-2" placeholder="Nama Lengkap"
+                            aria-label="Nama Lengkap" aria-describedby="Nama Lengkap"
+                            oninput="reMasking(this, 'upperCase')">
+                        <div>
+                            <label for="newReg-gender" class="form-label">Kelamin</label>
+                        </div>
+                        <div class="btn-group mb-2 w-100" role="group">
+                            <input type="radio" class="btn-check" name="newreg-gender" id="newreg-gender-1"
+                                autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="newreg-gender-1">Lelaki</label>
+                            <input type="radio" class="btn-check" name="newreg-gender" id="newreg-gender-2"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="newreg-gender-2">Perempuan</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12 ttl-container">
+                        <label for="newReg-ttl" class="form-label">Tanggal Lahir</label>
+                        <div class="input-group mb-2">
+                            <input type="date" class="form-control" placeholder="Tanggal Lahir"
+                                aria-label="Tanggal Lahir" aria-describedby="Tanggal Lahir">
+                            <input type="checkbox" class="btn-check" name="newreg-gender" id="newreg-manual-ttl"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="newreg-manual-ttl">Manual Usia</label>
+                        </div>
+                        <div class="row m-0 p-0 ttl-manual-container">
+                            <div class="col-4 p-0 m-0 px-1">
+                                <label for="newReg-tahun" class="form-label">Tahun</label>
+                                <input type="number" class="form-control  mb-2" placeholder="Tahun" aria-label="Tahun"
+                                    aria-describedby="Tahun">
+                            </div>
+                            <div class="col-4 p-0 m-0 px-1">
+                                <label for="newReg-bulan" class="form-label">Bulan</label>
+                                <input type="number" class="form-control  mb-2" placeholder="Bulan" aria-label="Bulan"
+                                    aria-describedby="Bulan">
+                            </div>
+                            <div class="col-4 p-0 m-0 px-1">
+                                <label for="newReg-hari" class="form-label">Hari</label>
+                                <input type="number" class="form-control  mb-2" placeholder="Hari" aria-label="Hari"
+                                    aria-describedby="Hari">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 mb-4">
+                    <div class="col-12">
+                        <label for="newReg-alamat" class="form-label">Alamat</label>
+                        <textarea type="text" class="form-control mb-2" placeholder="Alamat" aria-label="Alamat"
+                            style="font-size: 0.8rem;" aria-describedby="Alamat"></textarea>
+                    </div>
+                </div>
+                <div class="row m-0">
+                    <div class="col-12">
+                        <div class="newReg-title-1 my-2">Orangtua</div>
+                    </div>
+                </div>
+                <div class="row m-0 mb-3">
+                    <div class="col-md-6 col-12">
+                        <div class="newReg-title-2 my-2">Ayah</div>
+                        <div class="flex-grow-1">
+                            <input type="text" class="form-control mb-2" placeholder="Nama Ayah" id="newReg-ayah-nama">
+
+                            <input type="text" class="form-control mb-2" placeholder="Pekerjaan Ayah"
+                                id="newReg-ayah-pekerjaan">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="newReg-title-2 my-2">Ibu</div>
+                        <div class="flex-grow-1">
+                            <input type="text" class="form-control mb-2" placeholder="Nama Ibu" id="newReg-ibu-nama">
+                            <input type="text" class="form-control mb-2" placeholder="Pekerjaan Ibu"
+                                id="newReg-ibu-pekerjaan">
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0">
+                    <div class="col-12">
+                        <div class="newReg-title-1 my-2">Riw Antro Persalinan</div>
+                    </div>
+                </div>
+                <div class="row m-0">
+                    <div class="col-md-6 col-12">
+                        <label for="newReg-uk" class="form-label">Usia Kehamilan</label>
+                        <input id="newReg-uk" type="text" class="form-control mb-2" placeholder="39+1">
+                        <div class="input-deskripsi">
+                            <div>
+                                Gunakan format [usia dalam minggu]+[hari]
+                            </div>
+                        </div>
+                        <label for="newReg-bbl" class="form-label">Berat Badan Lahir</label>
+                        <input id="newReg-bbl" type="number" class="form-control mb-2" placeholder="gram">
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="newReg-pbl" class="form-label">Panjang Badan Lahir</label>
+                        <input id="newReg-pbl" type="number" class="form-control mb-2" placeholder="cm">
+                        <label for="newReg-lkl" class="form-label">Lingkar Kepala Lahir</label>
+                        <input id="newReg-lkl" type="number" class="form-control mb-2" placeholder="cm">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+.newReg-container{
+    height: 100%; width: 100%;
+    display: flex;
+    overflow: hidden;
+    /* border: 2px solid red; */
+    padding: 10px;
+    overflow: hidden;
+}
+.newReg-card{
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+    box-shadow: 5px 6px 8px -1px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+}
+.home-modal-close{
+    position: absolute; border-top-right-radius: 10px;
+    top: 0; right: 0; width: 30px; height: 30px;
+    display: flex; justify-content: center; align-items: center;
+    background-color: red; color: white; border: 0;
+}
+.newReg-header{
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    background-color: var(--baseColor);
+    color: white
+}
+.newReg-body-container{flex-grow: 1; overflow: hidden;}
+.newReg-body{height: 100%; width:100%; overflow-y: auto; padding: 20px;}
+.newReg-body div, .newReg-body label, .newReg-body button, .newReg-body input{font-size: 0.9rem;}
+.newReg-norm-container{width: 220px;}
+.newReg-ttl-container{
+    display: flex;
+    flex-direction: row;
+}
+.newReg-ttl-container > div:nth-child(1) {
+    width: 50%;
+    margin-right: 10px;
+}
+.newReg-ttl-container:has(#newReg-manualUsia) > div:nth-child(2){
+    overflow: hidden; 
+    width: 0px; 
+    transition: width 0.5s;
+}
+.newReg-ttl-container:has(#newReg-manualUsia:checked) > div:nth-child(2){
+    width: calc(50% - 10px)
+}
+.separator{
+    width: 100%;
+    border: 1px solid grey;
+    margin: 20px 0
+}
+.newreg-gender-container > div:nth-child(1){
+    font-size: 0.7rem;
+}
+@media (max-width: 992px){
+    .newReg-container{
+        padding: 0;
+    }
+    .newReg-card{
+        border-radius: 0;
+    }
+    .home-modal-close{
+        border-top-right-radius: 0;
+    }
+    .newReg-ttl-container > div:nth-child(1) {
+        width: 100%;
+    }
+    .newReg-ttl-container{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .newReg-ttl-container:has(#newReg-manualUsia) > div:nth-child(2){
+        overflow: hidden; 
+        width: 100%;
+        max-height: 0; 
+        transition: max-height 0.5s;
+    }
+    .newReg-ttl-container:has(#newReg-manualUsia:checked) > div:nth-child(2){
+        max-height: 120px;
+        width: 100%; 
+    }
+}

@@ -23,16 +23,23 @@
 }
 .home-modal-close{
     position: absolute; border-top-right-radius: 10px;
-    top: 0; right: 0; width: 30px; height: 30px;
+    top: 0; right: 0; width: 30px; height: 32px;
     display: flex; justify-content: center; align-items: center;
     background-color: red; color: white; border: 0;
 }
 .newReg-header{
     width: 100%;
-    height: 30px;
+    height: 35px;
     text-align: center;
     background-color: var(--baseColor);
     color: white
+}
+.newReg-btn-group{
+    background-color: var(--baseColorActive);
+    padding: 10px;
+}
+.newReg-btn-group button{
+    font-size: 0.8rem;
 }
 .newReg-body-container{flex-grow: 1; overflow: hidden;}
 .newReg-body{height: 100%; width:100%; overflow-y: auto; padding: 20px;}
@@ -78,6 +85,20 @@
 @media (max-width: 992px){
     .newReg-container{
         padding: 0;
+    }
+    .newReg-header{
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* margin-top: 0; */
+    }
+    .newReg-simpan{
+        left: 2px;
+        top: 2px;
+        height: 30px;
+        font-size: 0.8rem;
+        right: auto
     }
     .newReg-card{
         border-radius: 0;

@@ -24,6 +24,7 @@ async function login(){
                     database['user'] = respon.login.userdata;
                     database['klinikInfo'] = respon.login.klinikInfo
                     Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
+                    // NavTo(Elem("nav-home"))
                     
                 }
                 else{
@@ -54,8 +55,21 @@ async function login(){
             r.style.setProperty('--baseColor', database.color.html.basecolor[database.user.level])
             r.style.setProperty('--baseColorActive', database.color.html.baseColorActive[database.user.level])
         }
-        NavTo(Elem("nav-home"))
-        spinner(false)
+        console.log("fetching onloading database...")
+        spinner(true)
+        await fetch(
+            dbAPI +
+              "?req=onLoad"
+        )
+        .then((respon) => respon.json())
+        .then((respon) => {
+            if(respon.ok){
+                console.log("respon ok..")
+                database.pasienDB = respon.patientData
+                NavTo(Elem("nav-home"))
+                spinner(false)
+            }
+        })
     }
     console.log(database)
 }

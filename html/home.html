@@ -3,26 +3,28 @@
         <div class="pasien-card">
             <div>
                 <div></div>
-                <div id="pasien-card-noRM">23M0001</div>
+                <div id="pasien-card-noRM" class="homereset">23M0001</div>
             </div>
             <div>
                 <div>
-                    <div id="pasien-card-name">Argadia lkj lkja sldkjm, lkj alskj asdn</div>
-                    <div class="pasien-card-other">PEREMPUAN</div>
-                    <div id="pasien-card-ttl" class="pasien-card-other">21/10/2022 <span>(12th 11bln 3hr)</span></div>
-                    <div class="pasien-card-other">jl Anggrek, Kebonso, Pulisen, Boyolali</div>
+                    <div id="pasien-card-name" class="homereset">Argadia lkj lkja sldkjm, lkj alskj asdn</div>
+                    <div class="pasien-card-other homereset" id="pasien-card-gender">PEREMPUAN</div>
+                    <div id="pasien-card-ttl" class="pasien-card-other homereset">21/10/2022 <span>(12th 11bln
+                            3hr)</span></div>
+                    <div class="pasien-card-other homereset" id="pasien-card-alamat">jl Anggrek, Kebonso, Pulisen,
+                        Boyolali</div>
                     <div class="pasien-card-orangtua">
                         <div>Ayah</div>
                         <div>
-                            <div>H. Hagsdkjh mnd wd</div>
-                            <div>Pekerjaan Swasta</div>
+                            <div class="homereset" id="pasien-card-ayahNama">H. Hagsdkjh mnd wd</div>
+                            <div class="homereset" id="pasien-card-ayahPek">Pekerjaan Swasta</div>
                         </div>
                     </div>
                     <div class="pasien-card-orangtua">
                         <div>Ibu</div>
                         <div>
-                            <div>H. Hagsdkjh mnd wd</div>
-                            <div>Ibu RT</div>
+                            <div class="homereset" id="pasien-card-ibuNama">H. Hagsdkjh mnd wd</div>
+                            <div class="homereset" id="pasien-card-ibuPek">Ibu RT</div>
                         </div>
                     </div>
                 </div>
@@ -36,9 +38,9 @@
             <div class="android-hide">Cari Pasien</div>
             <div class="home-search-filter-container">
                 <div class="d-flex">
-                    <input type="text" oninput="noRMMasking(this)"
-                        class="home-search-filter form-control form-control-sm mb-1 me-2 border-1 border-primary"
-                        id="login-password" placeholder="Nomor RM" autocomplete="off">
+                    <input type="text" oninput="reMasking(this, 'noRM'); homeSearch(this)"
+                        class="home-search-filter form-control form-control-sm mb-1 me-2 border-1 border-primary homereset"
+                        id="home-search-norm" placeholder="Nomor RM" autocomplete="off">
                     <input type="checkbox" class="btn-check" label name="" id="searching-filter-show">
                     <label for="searching-filter-show" id="searching-filter-show-label"
                         class="btn btn-outline-primary me-1 mb-1"><i class="fa-solid fa-filter"></i></label>
@@ -49,14 +51,14 @@
                 </div>
                 <div class="d-flex flex-column" id="advance-filter">
                     <input type="text"
-                        class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary"
-                        id="login-password" placeholder="Nama Pasien" autocomplete="off">
+                        class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary homereset"
+                        oninput="homeSearch(this)" id="home-search-nama" placeholder="Nama Pasien" autocomplete="off">
                     <input type="text"
-                        class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary"
-                        id="login-password" placeholder="Nama Orangtua" autocomplete="off">
+                        class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary homereset"
+                        oninput="homeSearch(this)" id="home-search-ot" placeholder="Nama Orangtua" autocomplete="off">
                     <input type="text"
-                        class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary"
-                        id="login-password" placeholder="Alamat" autocomplete="off">
+                        class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary homereset"
+                        oninput="homeSearch(this)" id="home-search-alamat" placeholder="Alamat" autocomplete="off">
                 </div>
             </div>
             <div class="home-search-table-container">
@@ -72,7 +74,7 @@
                                 <th>Ibu</th>
                             </tr>
                         </thead>
-                        <tbody class="">
+                        <tbody class="" id="home-search-tableBody">
                             <tr>
                                 <td>23M001</td>
                                 <td>

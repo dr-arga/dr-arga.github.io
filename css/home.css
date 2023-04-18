@@ -110,7 +110,6 @@ div:has(#searching-filter-show:checked) + #advance-filter{
 }
 .home-search-table-container{
     flex-grow: 1;
-    /* border-top: 1px solid var(--baseColor); */
     padding: 0 5px 5px 5px;
     overflow: hidden;
 }
@@ -308,7 +307,7 @@ div:has(#searching-filter-show:checked) + #advance-filter{
     }
     .home-search-table-container{
         flex-grow: 1;
-        padding: 0 5px 15px 5px;
+        padding: 0 5px 50px 5px;
         overflow: hidden;
     }
     .home-search-table-container>div{

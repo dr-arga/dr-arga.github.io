@@ -30,7 +30,7 @@
                 </div>
                 <div class="pasien-card-btn-container">
                     <button class="btn btn-primary">Daftar Antrian</button>
-                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-primary" onclick="editPatient()">Edit</button>
                 </div>
             </div>
         </div>
@@ -52,10 +52,12 @@
                 <div class="d-flex flex-column" id="advance-filter">
                     <input type="text"
                         class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary homereset"
-                        oninput="homeSearch(this)" id="home-search-nama" placeholder="Nama Pasien" autocomplete="off">
+                        oninput="homeSearch(this); reMasking(this, 'upperCase')" id="home-search-nama"
+                        placeholder="Nama Pasien" autocomplete="off">
                     <input type="text"
                         class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary homereset"
-                        oninput="homeSearch(this)" id="home-search-ot" placeholder="Nama Orangtua" autocomplete="off">
+                        oninput="homeSearch(this); reMasking(this, 'upperCase')" id="home-search-ot"
+                        placeholder="Nama Orangtua" autocomplete="off">
                     <input type="text"
                         class="home-search-filter form-control form-control-sm mb-1 border-1 border-primary homereset"
                         oninput="homeSearch(this)" id="home-search-alamat" placeholder="Alamat" autocomplete="off">

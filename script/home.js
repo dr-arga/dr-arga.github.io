@@ -86,13 +86,12 @@ function homeSearch(elem){
             }
         }
     }
-    console.log(res)
     var nRow = 0
     while(nRow < res.length){
         var item = res[nRow]
         var gender = ""
-            if(item == "Lelaki"){gender = "[L] "}
-            if(item == "Perempuan"){gender = "[P] "}
+            if(item[2] == "Lelaki"){gender = "[L] "}
+            if(item[2] == "Perempuan"){gender = "[P] "}
         var ttlText = ""
         var usiaText = ""
         if(item[3]!==""){

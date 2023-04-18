@@ -1,0 +1,141 @@
+<div class="editPat-container">
+    <form class="editPat-card" id="editPat-card" onsubmit="return false">
+        <button class="home-modal-close" onclick="closeEditPatient()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="editPat-header">
+            Edit Data Pasien
+        </div>
+        <div class="editPat-btn-group">
+            <button type="submit" class="editPat-simpan btn btn-primary" onclick="editPat_Simpan('antri')">Simpan &
+                Antri</button>
+            <button type="submit" class="editPat-simpan btn btn-primary" onclick="editPat_Simpan()">Simpan</button>
+            <button class="editPat-simpan btn btn-danger" onclick="editPatient()">Reset</button>
+            <button class="editPat-simpan btn btn-danger" onclick="">Delete</button>
+        </div>
+        <div class="editPat-body-container">
+            <div class="editPat-body">
+                <div class="row m-0">
+                    <div class="col-md-5 col-12 mb-4">
+                        <label for="editPat-norm" class="form-label">Nomor RM</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="00-a-0000" aria-label="Nomor RM"
+                                autocomplete="off" id="editPat-norm" oninput="reMasking(this, 'noRM')">
+                            <button class="input-group-text btn btn-primary" id=""
+                                onclick="editPat_generateRM()">Generate</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0">
+                    <div class="col-md-6 col-12">
+                        <label for="editPat-nama" class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-control mb-2" placeholder="Nama Lengkap" id="editPat-nama"
+                            autocomplete="off" aria-label="Nama Lengkap" aria-describedby="Nama Lengkap"
+                            oninput="reMasking(this, 'upperCase');">
+                        <div>
+                            <label for="editPat-gender" class="form-label">Kelamin</label>
+                        </div>
+                        <div class="btn-group mb-2 w-100" role="group">
+                            <input type="radio" class="btn-check" name="editpat-gender" id="editpat-gender-1"
+                                autocomplete="off" checked value="Lelaki">
+                            <label class="btn btn-outline-primary" for="editpat-gender-1">Lelaki</label>
+                            <input type="radio" class="btn-check" name="editpat-gender" id="editpat-gender-2"
+                                autocomplete="off" value="Perempuan">
+                            <label class="btn btn-outline-primary" for="editpat-gender-2">Perempuan</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12 ttl-container">
+                        <label for="editPat-ttl" class="form-label">Tanggal Lahir</label>
+                        <div class="input-group mb-2">
+                            <input type="date" class="form-control" placeholder="Tanggal Lahir"
+                                aria-label="Tanggal Lahir" aria-describedby="Tanggal Lahir"
+                                onchange="editPat_ttlToAge()" id="editPat-ttl" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="editpat-manual-ttl" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="editpat-manual-ttl">Manual
+                                Usia</label>
+                        </div>
+                        <div class="row m-0 p-0 ttl-manual-container">
+                            <div class="col-4 p-0 m-0 px-1">
+                                <label for="editPat-tahun" class="form-label">Tahun</label>
+                                <input type="number" oninput="nR_manualToTTL()" class="form-control  mb-2"
+                                    placeholder="Tahun" aria-label="Tahun" id="editPat-tahun" aria-describedby="Tahun"
+                                    min="0" autocomplete="off">
+                            </div>
+                            <div class="col-4 p-0 m-0 px-1">
+                                <label for="editPat-bulan" class="form-label">Bulan</label>
+                                <input type="number" oninput="nR_manualToTTL()" class="form-control  mb-2"
+                                    placeholder="Bulan" aria-label="Bulan" id="editPat-bulan" aria-describedby="Bulan"
+                                    min="0" max="11" autocomplete="off">
+                            </div>
+                            <div class="col-4 p-0 m-0 px-1">
+                                <label for="editPat-hari" class="form-label">Hari</label>
+                                <input type="number" oninput="nR_manualToTTL()" class="form-control  mb-2"
+                                    placeholder="Hari" aria-label="Hari" id="editPat-hari" aria-describedby="Hari"
+                                    min="0" max="31" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 mb-4">
+                    <div class="col-12">
+                        <label for="editPat-alamat" class="form-label">Alamat</label>
+                        <textarea type="text" class="form-control mb-2" placeholder="Alamat" aria-label="Alamat"
+                            id="editPat-alamat" autocomplete="off" style="font-size: 0.8rem;"
+                            aria-describedby="Alamat"></textarea>
+                    </div>
+                </div>
+                <div class="row m-0">
+                    <div class="col-12">
+                        <div class="editPat-title-1 my-2">Orangtua</div>
+                    </div>
+                </div>
+                <div class="row m-0 mb-3">
+                    <div class="col-md-6 col-12">
+                        <div class="editPat-title-2 my-2">Ayah</div>
+                        <div class="flex-grow-1">
+                            <input type="text" class="form-control mb-2" placeholder="Nama Ayah" id="editPat-ayah-nama"
+                                oninput="reMasking(this, 'upperCase')" autocomplete="off">
+                            <input type="text" class="form-control mb-2" placeholder="Pekerjaan Ayah"
+                                id="editPat-ayah-pekerjaan" oninput="reMasking(this, 'upperCase')">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="editPat-title-2 my-2">Ibu</div>
+                        <div class="flex-grow-1">
+                            <input type="text" class="form-control mb-2" placeholder="Nama Ibu" id="editPat-ibu-nama"
+                                oninput="reMasking(this, 'upperCase')" autocomplete="off">
+                            <input type="text" class="form-control mb-2" placeholder="Pekerjaan Ibu"
+                                id="editPat-ibu-pekerjaan" oninput="reMasking(this, 'upperCase')">
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0">
+                    <div class="col-12">
+                        <div class="editPat-title-1 my-2">Riw Antro Persalinan</div>
+                    </div>
+                </div>
+                <div class="row m-0 mb-5">
+                    <div class="col-md-6 col-12">
+                        <label for="editPat-uk" class="form-label">Usia Kehamilan</label>
+                        <input id="editPat-uk" type="text" class="form-control mb-2" placeholder="39+1"
+                            oninput="reMasking(this, 'uk')" autocomplete="off">
+                        <div class="input-deskripsi">
+                            <div>
+                                Gunakan format [usia dalam minggu]+[hari]
+                            </div>
+                        </div>
+                        <label for="editPat-bbl" class="form-label">Berat Badan Lahir</label>
+                        <input autocomplete="off" id="editPat-bbl" type="number" class="form-control mb-2"
+                            placeholder="gram">
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="editPat-pbl" class="form-label">Panjang Badan Lahir</label>
+                        <input id="editPat-pbl" autocomplete="off" type="number" class="form-control mb-2"
+                            placeholder="cm">
+                        <label for="editPat-lkl" class="form-label">Lingkar Kepala Lahir</label>
+                        <input id="editPat-lkl" autocomplete="off" type="number" class="form-control mb-2"
+                            placeholder="cm">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

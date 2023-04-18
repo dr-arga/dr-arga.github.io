@@ -93,3 +93,11 @@ function manualToTTL(day, month, year, date){
     ttl = new Date(year1, month1, day1)
     return ttl
 }
+function dateToInput(date){
+    var d = new Date(date)
+    var mo = d.getMonth() + 1
+    if(mo.toString().length === 1){mo = "0" + mo}
+    var day = d.getDate()
+    if(day.toString().length === 1){day = "0" + day}
+    return d.getFullYear() + "-" + mo + "-" + day
+}

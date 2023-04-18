@@ -1,4 +1,11 @@
 function NewPatient(){
+    var newName = Elem("home-search-nama").value
+    var newOT = Elem("home-search-ot").value
+    var newAlamat = Elem("home-search-alamat").value
+    var newData = false
+    if(newName!=="" || newOT!=="" || newAlamat!==""){
+        if(confirm("Gunakan data pada kolom pencarian?")){newData = true}
+    }
     if(document.querySelector("body").offsetWidth > 992){
         Elem("home-middle-container").setAttribute("w3-include-html", "/html/newRegister.html")
         includeHTML(Elem("home-container"))
@@ -11,6 +18,12 @@ function NewPatient(){
     
     setTimeout(function(){
         Elem("newReg-norm").value = new Date().getFullYear().toString().substring(2);
+        if(newData){
+            Elem("newReg-nama").value = newName
+            Elem("newReg-alamat").value = newAlamat
+            Elem("newReg-ayah-nama").value = newOT
+            Elem("newReg-nama").oninput()
+        }
         Elem("newReg-card").focus()
         Elem("newReg-nama").focus()
     },500)
@@ -25,7 +38,7 @@ function closeNewPatientModal(){
     }
     
 }
-function ttlToAge_Input(elem){
+function newReg_ttlToAge(elem){
     var age = dateToAge(elem.value, new Date())
     Elem('newReg-tahun').value = age.year
     Elem('newReg-bulan').value = age.month
@@ -77,12 +90,14 @@ async function newReg_Simpan(antri){
         await simpanPasienBaru()
         closeNewPatientModal()
         NewAntrian(noRM)
+        homeSearchFilterReset()
         spinner(false)
     } else {
         if(!(confirm("Simpan data pasien baru?"))){return}
         spinner(true)
         await simpanPasienBaru()
         closeNewPatientModal()
+        homeSearchFilterReset()
         spinner(false)
     }
     async function simpanPasienBaru(){

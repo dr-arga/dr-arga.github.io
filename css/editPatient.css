@@ -1,0 +1,111 @@
+.separator{
+    width: 100%;
+    border: 1px solid grey;
+    margin: 20px 0
+}
+.editPat-container{
+    height: 100%; width: 100%;
+    display: flex;
+    overflow: hidden;
+    padding: 10px;
+    overflow: hidden;
+    /* background-color: blanchedalmond; */
+}
+.editPat-card{
+    position: relative;
+    background-color:rgb(236, 236, 236);
+    border-radius: 10px;
+    width: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+    box-shadow: 5px 6px 8px -1px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+}
+.home-modal-close{
+    position: absolute; border-top-right-radius: 10px;
+    top: 0; right: 0; width: 30px; height: 32px;
+    display: flex; justify-content: center; align-items: center;
+    background-color: red; color: white; border: 0;
+}
+.editPat-header{
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    background-color: black;
+    color: white
+}
+.editPat-btn-group{
+    background-color: rgb(236, 236, 236);
+    padding: 10px;
+}
+.editPat-btn-group button{
+    font-size: 0.8rem;
+}
+.editPat-body-container{flex-grow: 1; overflow: hidden;}
+.editPat-body{height: 100%; width:100%; overflow-y: auto; padding: 20px;}
+
+/* .editPat-body div{
+    border: 1px solid wheat
+} */
+.editPat-body label{
+    font-size: 0.8rem;
+    margin-bottom: 0;
+}
+.editPat-body .input-group button{
+    font-size: 0.8rem;
+}
+.editPat-body input{
+    font-size: 0.8rem;
+}
+.ttl-container:has(#editpat-manual-ttl) > .ttl-manual-container{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+.ttl-container:has(#editpat-manual-ttl:checked) > .ttl-manual-container{
+    max-height: 200px;
+}
+.editPat-title-1{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.editPat-title-2{
+    font-size: 0.8rem;
+    font-weight: bold;
+    width: 40px;
+}
+.input-deskripsi{
+    position: relative;
+}
+.input-deskripsi>div{
+    font-size: 0.5rem;
+    transform: translateY(-10px);
+    position: absolute;
+}
+@media (max-width: 992px){
+    .editPat-container{
+        padding: 0;
+    }
+    .editPat-header{
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* margin-top: 0; */
+    }
+    .editPat-simpan{
+        left: 2px;
+        top: 2px;
+        height: 30px;
+        font-size: 0.8rem;
+        right: auto
+    }
+    .editPat-card{
+        border-radius: 0;
+    }
+    .home-modal-close{
+        border-top-right-radius: 0;
+    }
+    
+}

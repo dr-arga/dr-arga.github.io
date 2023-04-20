@@ -55,21 +55,41 @@ async function login(){
             r.style.setProperty('--baseColor', database.color.html.basecolor[database.user.level])
             r.style.setProperty('--baseColorActive', database.color.html.baseColorActive[database.user.level])
         }
-        console.log("fetching onloading database...")
+        console.log("fetching database request...")
         spinner(true)
+            var now = new Date()
+            var dateReq = ""
+            var jamReq = ""
+            if(now.getHours() < 9){
+                
+                dateReq = dateToText(now)  
+                jamReq = "Pagi"
+            }
+            if(now.getHours() > 8 && now.getHours() < 19){
+                dateReq = dateToText(now)  
+                jamReq = "Sore"
+            }
+            if(now.getHours() > 18){
+                dateReq = dateToText(now.addDays(1));  
+                jamReq = "Pagi"
+            }
+            function dateToText(date){
+                return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate()
+            }   
         await fetch(
-            dbAPI +
-              "?req=onLoad"
+            dbAPI + "?req=onLoad&date="+dateReq+"&jam="+jamReq
         )
         .then((respon) => respon.json())
         .then((respon) => {
             if(respon.ok){
-                console.log("respon ok..")
+                console.log("respon database ok..")
                 database.pasienDB = respon.patientData
+                database.soapDB = respon.soapData
+                database.reservasiDB = respon.reservasiData
                 NavTo(Elem("nav-home"))
-                spinner(false)
             }
         })
+        spinner(false)
     }
     console.log(database)
 }

@@ -103,7 +103,7 @@ async function newReg_Simpan(antri){
     async function simpanPasienBaru(){
         await fetch(
             dbAPI +
-              "?req=newReg"
+              "?req=newPatient"
                 + "&noRM=" + noRM
                 + "&name=" + namalengkap
                 + "&gender=" + gender
@@ -113,6 +113,12 @@ async function newReg_Simpan(antri){
                 + "&ayahPek=" + ayahPek
                 + "&ibuNama=" + ibuNama
                 + "&ibuPek=" + ibuPek
+                + "&telp=" + Elem("newReg-telp").value 
+                + "&email=" + Elem("newReg-email").value
+                + "&uk=" + Elem("newReg-uk").value
+                + "&bbl=" + Elem("newReg-bbl").value
+                + "&pbl=" + Elem("newReg-pbl").value
+                + "&lkl=" + Elem("newReg-lkl").value
         )
         .then((respon) => respon.json())
         .then((respon) => {
@@ -142,9 +148,11 @@ function newReg_generateRM(){
 function checkingLastRM(value){
     var nDB = 0;
     var RMArr = [];
-    while(nDB < database.pasienDB.length){
-        var item = database.pasienDB[nDB]
-        var noRM = item[0]
+    var db = database.pasienDB
+    var noRMList = Object.keys(db)
+    while(nDB < noRMList.length){
+        // var item = database.pasienDB[nDB]
+        var noRM = noRMList[nDB]
         if(noRM.toString().substring(0,4) == value){
             RMArr.push(noRM.toString().substring(5)*1)
         }

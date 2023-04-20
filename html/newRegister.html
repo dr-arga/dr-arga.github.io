@@ -74,14 +74,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="row m-0 mb-4">
+                <div class="row m-0 mb-2">
                     <div class="col-12">
                         <label for="newReg-alamat" class="form-label">Alamat</label>
-                        <textarea type="text" class="form-control mb-2" placeholder="Alamat" aria-label="Alamat"
+                        <textarea type="text" class="form-control" placeholder="Alamat" aria-label="Alamat"
                             id="newReg-alamat" autocomplete="off" style="font-size: 0.8rem;"
                             aria-describedby="Alamat"></textarea>
                     </div>
                 </div>
+                <div class="row m-0">
+                    <div class="col-md-6 col-12">
+                        <label for="newReg-telp" class="form-label">No Hp / Telepon</label>
+                        <input type="text" class="form-control mb-2" placeholder="Telp" id="newReg-telp"
+                            autocomplete="off" aria-label="Telepon" aria-describedby="Telepon"
+                            oninput="reMasking(this, 'telp')">
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="newReg-email" class="form-label">Email</label>
+                        <input type="text" class="form-control mb-2" placeholder="aaaa@aa.aa" id="newReg-email"
+                            autocomplete="off" aria-label="Email" aria-describedby="Email"
+                            oninput="reMasking(this, 'email')">
+                    </div>
+                </div>
+                <input type="text" class="form-control mb-2" placeholder="15/01/2023" autocomplete="off"
+                    oninput="reMasking(this, 'tanggal')">
                 <div class="row m-0">
                     <div class="col-12">
                         <div class="newReg-title-1 my-2">Orangtua</div>

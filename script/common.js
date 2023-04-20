@@ -1,5 +1,5 @@
 var klinikAPI = "https://script.google.com/macros/s/AKfycbyzJ2kU3ZZXryLNrBFo0jiw-rgdM-R_WIrudW9o7wbrZruBTbfKDsuc3WNQIm9mTJrk/exec"
-var dbAPI = "https://script.google.com/macros/s/AKfycbwixBBa130qYBAYDaEBWfYv9uzA-NZq0UEckEHdNGyV-FECZbEGGS1gxSGvw12PE_NH/exec"
+var dbAPI = "https://script.google.com/macros/s/AKfycbyvBk0jRn8-i7LKAW9JJnagO30cyc3LchbNTGx6pwwxh-ZSh-YjzA51ShnLvM79HDJf/exec"
 
 var database = {
     color:{
@@ -41,11 +41,19 @@ function reMasking(elem, type){
     if(type == "noRM"){
         var maskOptions = {
             mask: '00-a-0000',
+            // lazy: false,
             prepare: function (str) {
                 return str.toUpperCase();
               }
         };
-        IMask(elem, maskOptions);
+        var mask = IMask(elem, maskOptions);
+        var num = mask.value.substring(5)*1
+        // if(num > 0){
+        //     mask.value = mask.value.substring(0,5) + "0".repeat(4 - num.toString().length) + num 
+        // }
+        console.log(num)
+        // var res = elem.value.substring(0,5) + "0".repeat(4 - num.toString().length) + num
+        // elem.value = res
     }
     if(type == "upperCase"){
         var text = elem.value
@@ -56,6 +64,28 @@ function reMasking(elem, type){
             mask: '00 mg + 0',
         };
         IMask(elem, maskOptions);
+    }
+    if(type == "telp"){
+        var maskOptions = {
+            mask: /^\d+$/,
+        };
+        IMask(elem, maskOptions)
+    }
+
+    if(type == "email"){
+        var maskOptions = {
+            mask: /^\S*@?\S*$/
+        };
+        IMask(elem, maskOptions)
+    }
+    if(type == "tanggal"){
+        var maskOptions = {
+            mask: Date,
+            lazy: false,
+            pattern: 'd/`m/`Y',
+
+        };
+        IMask(elem, maskOptions)
     }
 }
 function dateToAge(dateFirst, dateSecond){

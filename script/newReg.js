@@ -17,6 +17,7 @@ function NewPatient(){
     }
     
     setTimeout(function(){
+        datepickbuild(Elem('newReg-ttl-pre'))
         Elem("newReg-norm").value = new Date().getFullYear().toString().substring(2);
         if(newData){
             Elem("newReg-nama").value = newName
@@ -24,9 +25,11 @@ function NewPatient(){
             Elem("newReg-ayah-nama").value = newOT
             Elem("newReg-nama").oninput()
         }
+        
         Elem("newReg-card").focus()
         Elem("newReg-nama").focus()
     },500)
+    
 }
 function closeNewPatientModal(){
     if(document.querySelector("body").offsetWidth > 992){
@@ -40,6 +43,7 @@ function closeNewPatientModal(){
 }
 function newReg_ttlToAge(elem){
     var age = dateToAge(elem.value, new Date())
+    console.log(age)
     Elem('newReg-tahun').value = age.year
     Elem('newReg-bulan').value = age.month
     Elem('newReg-hari').value = age.day

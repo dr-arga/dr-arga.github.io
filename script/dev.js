@@ -1,33 +1,28 @@
+var datepickLocalEn = {
+    days: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+    daysShort: ['Ming', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+    daysMin: ['Ming', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+    months: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+    today: 'Today',
+    clear: 'Clear',
+    dateFormat: 'dd-MM-yyyy',
+    timeFormat: 'hh:mm aa',
+    firstDay: 1
+}
+
 developing(true)
 
 async function developing(bo){
-    await includeHTML(document.querySelector("body"))
-    HideDiv()
     if(bo){
-        Elem("login-username").value = "Arga"
-        Elem("login-password").value = "radenr0r0"
-        login()
-        setTimeout(NewPatient,5000)
-        // Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html");
-        // await includeHTML(document.querySelector("body"))
-        // spinner(true)
-        // await fetch(
-        //     dbAPI +
-        //       "?req=onLoad"
-        // )
-        // .then((respon) => respon.json())
-        // .then((respon) => {
-        //     if(respon.ok){
-        //         console.log("respon ok..")
-        //         database.pasienDB = respon.patientData    
-        //         setTimeout(devNav, 2000)
-        //     }
-        // })
-        // function devNav(){
-        //     // console.log("devNav")
-        //     NavTo(Elem("nav-home"))
-        //     spinner(false)
-        // }
-        // console.log(database)
+        // Elem("login-username").value = "Arga"
+        // Elem("login-password").value = "radenr0r0"
+        // login()
+        Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html")
+        await includeHTML(document.querySelector("body"))
+        HideDiv()
+        NavTo(Elem('nav-home'))
+        setTimeout(NewPatient,1000)
     }
 }
+

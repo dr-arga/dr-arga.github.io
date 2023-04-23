@@ -1,6 +1,7 @@
 function onload(){
     includeHTML(document.querySelector("body"))
     HideDiv()
+    console.log("Asas")
 }
 function HideDiv(){
     console.log("Hiding hidden-element....")

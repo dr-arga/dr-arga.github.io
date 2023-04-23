@@ -39,6 +39,7 @@
             <div class="home-search-filter-container">
                 <div class="d-flex">
                     <input type="text" oninput="reMasking(this, 'noRM'); homeSearch(this)"
+                        onblur="noRMLeave(this); homeSearch(this)"
                         class="home-search-filter form-control form-control-sm mb-1 me-2 border-1 border-primary homereset"
                         id="home-search-norm" placeholder="Nomor RM" autocomplete="off">
                     <input type="checkbox" class="btn-check" label name="" id="searching-filter-show">

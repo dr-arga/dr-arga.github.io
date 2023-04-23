@@ -41,19 +41,11 @@ function reMasking(elem, type){
     if(type == "noRM"){
         var maskOptions = {
             mask: '00-a-0000',
-            // lazy: false,
             prepare: function (str) {
                 return str.toUpperCase();
-              }
+              }  
         };
-        var mask = IMask(elem, maskOptions);
-        var num = mask.value.substring(5)*1
-        // if(num > 0){
-        //     mask.value = mask.value.substring(0,5) + "0".repeat(4 - num.toString().length) + num 
-        // }
-        console.log(num)
-        // var res = elem.value.substring(0,5) + "0".repeat(4 - num.toString().length) + num
-        // elem.value = res
+        IMask(elem, maskOptions)
     }
     if(type == "upperCase"){
         var text = elem.value
@@ -79,13 +71,44 @@ function reMasking(elem, type){
         IMask(elem, maskOptions)
     }
     if(type == "tanggal"){
-        var maskOptions = {
+        var momentFormat = 'DD-MM-YYYY';
+        var momentMask = new IMask(elem, {
             mask: Date,
-            lazy: false,
-            pattern: 'd/`m/`Y',
-
-        };
-        IMask(elem, maskOptions)
+            pattern: 'd`-m`-00000',
+        });
+        if(elem.value.length >0 && elem.value.length < 10){
+            if(elem.getAttribute("inputPre")){
+                Elem(elem.getAttribute("inputPre")).value = ""
+            }
+            if(elem.getAttribute("age-output")){
+                Elem(outElems[0]).value = ""
+                Elem(outElems[1]).value = ""
+                Elem(outElems[2]).value = ""
+            }   
+        }
+        if(elem.value.length === 10){
+            var dmy = elem.value.split("-")
+            var date = new Date(dmy[2]*1, (dmy[1]*1)-1, dmy[0]*1)
+            var age = dateToAge(date, new Date())
+            // console.log(age)
+            var outElems = elem.getAttribute("age-output").split(";") 
+            Elem(outElems[0]).value = age.year
+            Elem(outElems[1]).value = age.month
+            Elem(outElems[2]).value = age.day
+        }
+        
+    }
+}
+function noRMLeave(elem){
+    var text = elem.value
+    var ID = elem.id
+    if(text.length < 9 && text.length > 5){
+        console.log("asas")
+        var num = text.substring(5)*1
+        // console.log(num)
+        var j = text.substring(0,5) + "0".repeat(4 - num.toString().length) + num
+        console.log(j)
+        elem.value = j
     }
 }
 function dateToAge(dateFirst, dateSecond){
@@ -130,4 +153,22 @@ function dateToInput(date){
     var day = d.getDate()
     if(day.toString().length === 1){day = "0" + day}
     return d.getFullYear() + "-" + mo + "-" + day
+}
+
+function maskingDate(elem){
+    // var value = elem.value
+    function j(value){
+    //   const maskDate = value => {
+        let v = value.replace(/\D/g,'').slice(0, 10);
+        if (v.length >= 5) {
+          return `${v.slice(0,2)}/${v.slice(2,4)}/${v.slice(4)}`;
+        }
+        else if (v.length >= 3) {
+          return `${v.slice(0,2)}/${v.slice(2)}`;
+        }
+        return v
+    //   }
+    }
+
+  elem.value = j(elem.value)
 }

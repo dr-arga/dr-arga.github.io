@@ -17,8 +17,9 @@
                     <div class="col-md-5 col-12 mb-4">
                         <label for="newReg-norm" class="form-label">Nomor RM</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="00-a-0000" aria-label="Nomor RM"
-                                autocomplete="off" id="newReg-norm" oninput="reMasking(this, 'noRM')">
+                            <input type="text" class="form-control" placeholder="23-A-0001" aria-label="Nomor RM"
+                                autocomplete="off" id="newReg-norm" oninput="reMasking(this, 'noRM')"
+                                onblur="noRMLeave(this)">
                             <button class="input-group-text btn btn-primary" id=""
                                 onclick="newReg_generateRM()">Generate</button>
                         </div>
@@ -45,9 +46,13 @@
                     <div class="col-md-6 col-12 ttl-container">
                         <label for="newReg-ttl" class="form-label">Tanggal Lahir</label>
                         <div class="input-group mb-2">
-                            <input type="date" class="form-control" placeholder="Tanggal Lahir"
-                                aria-label="Tanggal Lahir" aria-describedby="Tanggal Lahir"
-                                onchange="newReg_ttlToAge(this)" id="newReg-ttl" autocomplete="off">
+                            <input type="text" class="form-control" placeholder="Tanggal Lahir"
+                                aria-label="Tanggal Lahir" oninput="reMasking(this,'tanggal')"
+                                aria-describedby="Tanggal Lahir" id="newReg-ttl" inputPre="newReg-ttl-pre"
+                                age-output="newReg-tahun;newReg-bulan;newReg-hari" autocomplete="off">
+                            <span class="input-group-text" onclick="Elem('newReg-ttl-pre').focus()"><i
+                                    class="fa-solid fa-calendar-days"></i></span>
+                            <input input type="text" class="datePre" id="newReg-ttl-pre" for="newReg-ttl">
                             <input type="checkbox" class="btn-check" id="newreg-manual-ttl" autocomplete="off">
                             <label class="btn btn-outline-primary" for="newreg-manual-ttl">Manual
                                 Usia</label>

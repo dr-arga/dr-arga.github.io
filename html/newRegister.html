@@ -50,9 +50,11 @@
                                 aria-label="Tanggal Lahir" oninput="reMasking(this,'tanggal')"
                                 aria-describedby="Tanggal Lahir" id="newReg-ttl" inputPre="newReg-ttl-pre"
                                 age-output="newReg-tahun;newReg-bulan;newReg-hari" autocomplete="off">
-                            <span class="input-group-text" onclick="Elem('newReg-ttl-pre').focus()"><i
+                            <span class="input-group-text"
+                                onclick="Elem('newReg-ttl-pre').focus(); Elem('newReg-ttl-pre').showPicker()"><i
                                     class="fa-solid fa-calendar-days"></i></span>
-                            <input input type="text" class="datePre" id="newReg-ttl-pre" for="newReg-ttl">
+                            <input type="date" class="datePre" id="newReg-ttl-pre" for="newReg-ttl"
+                                onchange="Elem('newReg-ttl').value = this.value">
                             <input type="checkbox" class="btn-check" id="newreg-manual-ttl" autocomplete="off">
                             <label class="btn btn-outline-primary" for="newreg-manual-ttl">Manual
                                 Usia</label>

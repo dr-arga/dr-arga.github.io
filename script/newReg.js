@@ -17,7 +17,7 @@ function NewPatient(){
     }
     
     setTimeout(function(){
-        datepickbuild(Elem('newReg-ttl-pre'))
+        datepickbuild()
         Elem("newReg-norm").value = new Date().getFullYear().toString().substring(2);
         if(newData){
             Elem("newReg-nama").value = newName

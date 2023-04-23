@@ -81,6 +81,7 @@ function reMasking(elem, type){
                 Elem(elem.getAttribute("inputPre")).value = ""
             }
             if(elem.getAttribute("age-output")){
+                var outElems = elem.getAttribute("age-output").split(";")
                 Elem(outElems[0]).value = ""
                 Elem(outElems[1]).value = ""
                 Elem(outElems[2]).value = ""
@@ -89,12 +90,18 @@ function reMasking(elem, type){
         if(elem.value.length === 10){
             var dmy = elem.value.split("-")
             var date = new Date(dmy[2]*1, (dmy[1]*1)-1, dmy[0]*1)
+            var mo = (dmy[1]*1).toString().length === 1 ? "0" + (dmy[1]*1) : (dmy[1]*1)
+            var day = (dmy[0]*1).toString().length === 1 ? "0" + dmy[0]*1 : dmy[0]*1
             var age = dateToAge(date, new Date())
-            // console.log(age)
-            var outElems = elem.getAttribute("age-output").split(";") 
-            Elem(outElems[0]).value = age.year
-            Elem(outElems[1]).value = age.month
-            Elem(outElems[2]).value = age.day
+            if(elem.getAttribute("inputPre")){
+                Elem("newReg-ttl-pre").value = [dmy[2]*1, mo, day].join("-")
+            }
+            if(elem.getAttribute("age-output")){
+                var outElems = elem.getAttribute("age-output").split(";") 
+                Elem(outElems[0]).value = age.year
+                Elem(outElems[1]).value = age.month
+                Elem(outElems[2]).value = age.day
+            }
         }
         
     }
@@ -154,21 +161,25 @@ function dateToInput(date){
     if(day.toString().length === 1){day = "0" + day}
     return d.getFullYear() + "-" + mo + "-" + day
 }
+// function openPicker(inputDateElem) {
+//     var ev = document.createEvent('KeyboardEvent');
+//     ev.initKeyboardEvent('keydown', true, true, document.defaultView, 'F4', 0);
+//     inputDateElem.dispatchEvent(ev);
+// }
+// function maskingDate(elem){
+//     // var value = elem.value
+//     function j(value){
+//     //   const maskDate = value => {
+//         let v = value.replace(/\D/g,'').slice(0, 10);
+//         if (v.length >= 5) {
+//           return `${v.slice(0,2)}/${v.slice(2,4)}/${v.slice(4)}`;
+//         }
+//         else if (v.length >= 3) {
+//           return `${v.slice(0,2)}/${v.slice(2)}`;
+//         }
+//         return v
+//     //   }
+//     }
 
-function maskingDate(elem){
-    // var value = elem.value
-    function j(value){
-    //   const maskDate = value => {
-        let v = value.replace(/\D/g,'').slice(0, 10);
-        if (v.length >= 5) {
-          return `${v.slice(0,2)}/${v.slice(2,4)}/${v.slice(4)}`;
-        }
-        else if (v.length >= 3) {
-          return `${v.slice(0,2)}/${v.slice(2)}`;
-        }
-        return v
-    //   }
-    }
-
-  elem.value = j(elem.value)
-}
+//   elem.value = j(elem.value)
+// }

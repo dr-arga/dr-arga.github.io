@@ -17,7 +17,6 @@ function NewPatient(){
     }
     
     setTimeout(function(){
-        datepickbuild()
         Elem("newReg-norm").value = new Date().getFullYear().toString().substring(2);
         if(newData){
             Elem("newReg-nama").value = newName
@@ -25,7 +24,22 @@ function NewPatient(){
             Elem("newReg-ayah-nama").value = newOT
             Elem("newReg-nama").oninput()
         }
-        
+        var today = new Date(2023,3,24,13,1)
+        var soapJam = "Pagi"
+        var soapTgl = dateToInput(today)
+        if(today.getHours()<9){soapJam = "Pagi"}
+        if(today.getHours()>8 && today.getHours()<19){
+            soapJam = "Sore"
+            Elem("newReg-jamAntri").querySelector("option:nth-child(1)").disabled = true    
+        }
+        if(today.getHours()>18){
+            var tomorrow = new Date();
+            tomorrow.setDate(today.getDate()+1)
+            soapTgl = dateToInput(tomorrow)
+        }
+        Elem("newReg-jamAntri").value = soapJam
+        Elem("newReg-tglAntri").value = soapTgl
+        Elem("newReg-tglAntri").min = dateToInput(today)
         Elem("newReg-card").focus()
         Elem("newReg-nama").focus()
     },500)
@@ -63,8 +77,7 @@ function nR_manualToTTL(){
     if(ttl.getDate().toString().length === 1){dayStr = "0" + ttl.getDate().toString()}
     else{dayStr = ttl.getDate().toString()}
 
-
-    Elem('newReg-ttl').value = ttl.getFullYear()+"-"+monthStr+"-"+dayStr
+    Elem('newReg-ttl').value = dayStr +"-"+monthStr+"-"+ ttl.getFullYear()
 }
 async function newReg_Simpan(antri){
     var namalengkap = Elem("newReg-nama").value
@@ -87,68 +100,66 @@ async function newReg_Simpan(antri){
     var ayahNama = Elem("newReg-ayah-nama").value; var ayahPek = Elem("newReg-ayah-pekerjaan").value
     var ibuNama = Elem("newReg-ibu-nama").value; var ibuPek = Elem("newReg-ibu-pekerjaan").value
     if(ayahNama == "" && ibuNama == ""){alert("Salah satu nama orangtua harus diisi"); Elem("newReg-ayah-nama").focus(); return}
+    
+    
+    
+    var urlPasienSimpan = "&noRM=" + noRM
+        + "&namaLengkap=" + namalengkap
+        + "&gender=" + gender
+        + "&ttl=" + ttl
+        + "&alamat=" + alamat
+        + "&ayahNama=" + ayahNama
+        + "&ayahPek=" + ayahPek
+        + "&ibuNama=" + ibuNama
+        + "&ibuPek=" + ibuPek
+        + "&telp=" + Elem("newReg-telp").value 
+        + "&email=" + Elem("newReg-email").value
+        + "&uk=" + Elem("newReg-uk").value
+        + "&bbl=" + Elem("newReg-bbl").value
+        + "&pbl=" + Elem("newReg-pbl").value
+        + "&lkl=" + Elem("newReg-lkl").value 
+    
+    var urlAntrianBaru = 
+        "&soapTgl="+ Elem("newReg-tglAntri").value
+        + "&soapJam="+ Elem("newReg-jamAntri").value
+        + "&soapStatus=Antri"  
 
     if(antri !== undefined){
         if(!(confirm("Simpan data pasien baru dan lanjut antrian?"))){return}
-        spinner(true)
-        await simpanPasienBaru()
-        closeNewPatientModal()
-        NewAntrian(noRM)
-        homeSearchFilterReset()
-        spinner(false)
+        var url = dbAPI + "?req=newPatient_Antri" + urlPasienSimpan + urlAntrianBaru
+        
     } else {
         if(!(confirm("Simpan data pasien baru?"))){return}
-        spinner(true)
-        await simpanPasienBaru()
-        closeNewPatientModal()
-        homeSearchFilterReset()
-        spinner(false)
+        var url = dbAPI + "?req=newPatient" + urlPasienSimpan
     }
-    async function simpanPasienBaru(){
-        await fetch(
-            dbAPI +
-              "?req=newPatient"
-                + "&noRM=" + noRM
-                + "&name=" + namalengkap
-                + "&gender=" + gender
-                + "&ttl=" + ttl
-                + "&alamat=" + alamat
-                + "&ayahNama=" + ayahNama
-                + "&ayahPek=" + ayahPek
-                + "&ibuNama=" + ibuNama
-                + "&ibuPek=" + ibuPek
-                + "&telp=" + Elem("newReg-telp").value 
-                + "&email=" + Elem("newReg-email").value
-                + "&uk=" + Elem("newReg-uk").value
-                + "&bbl=" + Elem("newReg-bbl").value
-                + "&pbl=" + Elem("newReg-pbl").value
-                + "&lkl=" + Elem("newReg-lkl").value
-        )
+
+    spinner(true)
+    await simpanPasienBaru(url)
+    closeNewPatientModal()
+    homeSearchFilterReset()
+    spinner(false)
+    
+    async function simpanPasienBaru(url){
+        // return        
+        await fetch(url)
         .then((respon) => respon.json())
         .then((respon) => {
             if(respon.ok){
                 console.log(respon)
                 console.log("respon ok..")
                 database.pasienDB = respon.patientData
-                alert("Data pasien baru telah disimpan")
+                if(respon.soapData){database.soapDB = respon.soapData}
+                if(respon.soapData){
+                    alert("Data pasien baru telah disimpan. Antrian telah ditambahkan")
+                } else {
+                    alert("Data pasien baru telah disimpan")
+                }
                 console.log(database)
             }
         })
     }
 }
-function newReg_generateRM(){
-    var namalengkap = Elem("newReg-nama").value
-    if(namalengkap == ""){
-        alert("Nama masih kosong")
-        Elem("newReg-nama").focus()
-        return
-    }
-    var year = new Date().getFullYear().toString().substring(2)
-    var lastRM = checkingLastRM(year + "-" + namalengkap.substring(0,1).toUpperCase())
-    var newRM = "0".repeat(4 - (lastRM+1).toString().length) + (lastRM+1)
-    var newRMText = year + "-" + namalengkap.substring(0,1).toUpperCase() + "-" + newRM 
-    Elem("newReg-norm").value = newRMText
-}
+
 function checkingLastRM(value){
     var nDB = 0;
     var RMArr = [];
@@ -167,11 +178,4 @@ function checkingLastRM(value){
         lastRM = Math.max(...RMArr)
     }
     return lastRM
-}
-function autoNoRM(nama){
-    if(nama == ""){
-        Elem("newReg-norm").value = ""
-    } else {
-        newReg_generateRM()
-    }
 }

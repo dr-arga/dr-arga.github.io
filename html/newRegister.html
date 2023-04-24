@@ -9,10 +9,24 @@
                 Antri</button>
             <button type="submit" class="newReg-simpan btn btn-primary" onclick="newReg_Simpan()">Simpan</button>
             <button class="newReg-simpan btn btn-danger" onclick="NewPatient()">Reset</button>
-            <button class="newReg-simpan btn btn-danger" onclick="">Delete</button>
+            <button class="d-none newReg-simpan btn btn-danger" onclick="">Delete</button>
         </div>
         <div class="newReg-body-container">
             <div class="newReg-body">
+                <div class="row m-0">
+                    <div class="col-6">
+                        <label for="newReg-tglAntri" class="form-label">Tanggal Antrian</label>
+                        <input type="date" class="form-control" id="newReg-tglAntri" autocomplete="off"
+                            onchange="setJam(this, 'newReg-jamAntri')">
+                    </div>
+                    <div class="col-6">
+                        <label for="newReg-jamAntri" class="form-label">Jam Antrian</label>
+                        <select type="date" class="form-select form-select-sm" id="newReg-jamAntri" autocomplete="off">
+                            <option value="Pagi" selected>Pagi</option>
+                            <option value="Sore">Sore</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="row m-0">
                     <div class="col-md-5 col-12 mb-4">
                         <label for="newReg-norm" class="form-label">Nomor RM</label>
@@ -30,7 +44,7 @@
                         <label for="newReg-nama" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control mb-2" placeholder="Nama Lengkap" id="newReg-nama"
                             autocomplete="off" aria-label="Nama Lengkap" aria-describedby="Nama Lengkap"
-                            oninput="reMasking(this, 'upperCase'); autoNoRM(this.value)">
+                            oninput="reMasking(this, 'upperCase'); autoNoRM(this.value, 'new')">
                         <div>
                             <label for="newReg-gender" class="form-label">Kelamin</label>
                         </div>
@@ -46,7 +60,7 @@
                     <div class="col-md-6 col-12 ttl-container">
                         <label for="newReg-ttl" class="form-label">Tanggal Lahir</label>
                         <div class="input-group mb-2">
-                            <input type="text" class="form-control" placeholder="Tanggal Lahir"
+                            <input type="text" class="form-control" placeholder="hari-bulan-tahun"
                                 aria-label="Tanggal Lahir" oninput="reMasking(this,'tanggal')"
                                 aria-describedby="Tanggal Lahir" id="newReg-ttl" inputPre="newReg-ttl-pre"
                                 age-output="newReg-tahun;newReg-bulan;newReg-hari" autocomplete="off">
@@ -54,7 +68,7 @@
                                 onclick="Elem('newReg-ttl-pre').focus(); Elem('newReg-ttl-pre').showPicker()"><i
                                     class="fa-solid fa-calendar-days"></i></span>
                             <input type="date" class="datePre" id="newReg-ttl-pre" for="newReg-ttl"
-                                onchange="Elem('newReg-ttl').value = this.value">
+                                onchange="datePreChange(this)">
                             <input type="checkbox" class="btn-check" id="newreg-manual-ttl" autocomplete="off">
                             <label class="btn btn-outline-primary" for="newreg-manual-ttl">Manual
                                 Usia</label>
@@ -103,8 +117,6 @@
                             oninput="reMasking(this, 'email')">
                     </div>
                 </div>
-                <input type="text" class="form-control mb-2" placeholder="15/01/2023" autocomplete="off"
-                    oninput="reMasking(this, 'tanggal')">
                 <div class="row m-0">
                     <div class="col-12">
                         <div class="newReg-title-1 my-2">Orangtua</div>

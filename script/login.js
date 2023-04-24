@@ -61,7 +61,6 @@ async function login(){
             var dateReq = ""
             var jamReq = ""
             if(now.getHours() < 9){
-                
                 dateReq = dateToText(now)  
                 jamReq = "Pagi"
             }
@@ -70,12 +69,15 @@ async function login(){
                 jamReq = "Sore"
             }
             if(now.getHours() > 18){
-                dateReq = dateToText(now.addDays(1));  
+                var tomorrow = new Date()
+                tomorrow.setDate(now.getDate()+1)
+                dateReq = dateToText(tomorrow);  
                 jamReq = "Pagi"
             }
             function dateToText(date){
                 return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate()
-            }   
+            }
+            console.log("geting data from " + dateReq + " " + jamReq)
         await fetch(
             dbAPI + "?req=onLoad&date="+dateReq+"&jam="+jamReq
         )

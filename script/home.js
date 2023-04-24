@@ -12,8 +12,6 @@ function antrianNav(elem){
         elem.classList.add("active")
         Elem("antrian-nav-" + elem.getAttribute('for')).classList.add('active')
     }
-    
-
 }
 function homeSearchFilterReset(){
     document.querySelectorAll(".home-search-filter").forEach((p)=>{
@@ -37,10 +35,10 @@ function HomeReset(){
     }
     var table = Elem("home-search-tableBody")
     table.innerHTML = ""
-    // console.log(database)
+    homeSearchFilterReset()
+    UpdateAntrian()
 }
 function homeSearch(elem){
-    // console.log(elem)
     var elemType = elem.id.substring(12)
     var table = Elem("home-search-tableBody")
     table.innerHTML = ""
@@ -141,7 +139,6 @@ function homeSearch(elem){
         }
     }
 }
-
 function PasienCard(elem){
     var noRM = elem.getAttribute("rm")
     var item = database.pasienDB[noRM]
@@ -159,4 +156,67 @@ function PasienCard(elem){
     Elem("pasien-card-ayahPek").innerHTML = item.ayahPek
     Elem("pasien-card-ibuNama").innerHTML = item.ibuNama
     Elem("pasien-card-ibuPek").innerHTML = item.ibuPek
+}
+function UpdateAntrian(){
+    var navAntri = Elem("antrian-nav-antri")
+    var navSelesai = Elem("antrian-nav-selesai")
+    var navReservasi = Elem("antrian-nav-reservasi")
+        navAntri.innerHTML = ""
+        navSelesai.innerHTML = ""
+        navReservasi.innerHTML = ""
+
+    var dataAntri = Object.values(database.soapDB).filter((a)=>{return a.soapStatus == "Antri"}).sort((a,b)=>{return new Date(a.antriTime) - new Date(b.antriTime)})
+    var dataSelesai = Object.values(database.soapDB).filter((a)=>{return (a.soapStatus == "Selesai") || (a.soapStatus == "Batal") }).sort((a,b)=>{return new Date(a.selesaiTime) - new Date(b.selesaiTime)})
+    var dataReservasi = Object.values(database.reservasiDB).sort((a,b)=>{return new Date(a.Timestamp) - new Date(b.Timestamp)})
+    
+    document.querySelector(".antrian-nav-btn-container > div:nth-child(1) span").innerHTML = dataAntri.length
+    document.querySelector(".antrian-nav-btn-container > div:nth-child(2) span").innerHTML = dataSelesai.length
+    document.querySelector(".antrian-nav-btn-container > div:nth-child(3) span").innerHTML = dataReservasi.length
+
+    for(var i = 0; i < dataAntri.length; i++){
+        var soapItem = dataAntri[i]
+        var timeAntri = new Date(soapItem.antriTime)
+        var antrianDiv = 
+            "<div class='antrian-list-item'>"
+                +"<div class='antrian-item-number'>"+(i+1)+"</div>"
+                +"<div>"
+                    +"<div class='antrian-item-time'>"+ timeAntri +"</div>"
+                    +"<div class='antrian-item-name'>"+ database.pasienDB[soapItem.noRM].namaLengkap +"</div>"
+                    +"<div class='antrian-item-norm'>"+ soapItem.noRM +"</div>"
+                    +"<button class='btn btn-primary antrian-item-btn' onclick='selectAntrian("+soapItem.soapID+")'>action</button>"
+                +"</div>"
+            +"</div>"
+        navAntri.innerHTML += antrianDiv  
+    }
+    for(var i = 0; i < dataSelesai.length; i++){
+        var soapItem = dataSelesai[i]
+        var timeSelesai = new Date(soapItem.selesaiTime)
+        var SelesaiDiv = 
+            "<div class='antrian-list-item'>"
+                +"<div class='antrian-item-number'>"+(i+1)+"</div>"
+                +"<div>"
+                    +"<div class='antrian-item-time'>"+ timeSelesai +"</div>"
+                    +"<div class='antrian-item-name'>"+ database.pasienDB[soapItem.noRM].namaLengkap +"</div>"
+                    +"<div class='antrian-item-norm'>"+ soapItem.noRM +"</div>"
+                    +"<button class='btn btn-primary antrian-item-btn' onclick='selectAntrianSelesai("+soapItem.soapID+")'>action</button>"
+                +"</div>"
+            +"</div>"
+        navSelesai.innerHTML += SelesaiDiv  
+    }
+    for(var i = 0; i < dataReservasi.length; i++){
+        var resItem = dataReservasi[i]
+        var timeReservasi = new Date(resItem.Timestamp)
+        var resDiv = 
+            "<div class='antrian-list-item'>"
+                +"<div class='antrian-item-number'>"+(i+1)+"</div>"
+                +"<div>"
+                    +"<div class='antrian-item-time'>"+ timeReservasi +"</div>"
+                    +"<div class='antrian-item-name'>"+ resItem["Nama Lengkap"] +"</div>"
+                    // +"<div class='antrian-item-norm'>"+ soapItem.noRM +"</div>"
+                    +"<button class='btn btn-primary antrian-item-btn' onclick='selectReservasi("+resItem.resID+")'>action</button>"
+                +"</div>"
+            +"</div>"
+        navReservasi.innerHTML += resDiv  
+    }
+    // console.log(new Date(database.soapDB[13].soapTgl))
 }

@@ -1,5 +1,5 @@
 var klinikAPI = "https://script.google.com/macros/s/AKfycbyzJ2kU3ZZXryLNrBFo0jiw-rgdM-R_WIrudW9o7wbrZruBTbfKDsuc3WNQIm9mTJrk/exec"
-var dbAPI = "https://script.google.com/macros/s/AKfycbyvBk0jRn8-i7LKAW9JJnagO30cyc3LchbNTGx6pwwxh-ZSh-YjzA51ShnLvM79HDJf/exec"
+var dbAPI = "https://script.google.com/macros/s/AKfycbzKoNhpCIFtemPC0tWxJ8u5fIzzazgAj70p1jrSI81yXfg24DIhCeuRobjOUGxjDYln/exec"
 
 var database = {
     color:{
@@ -94,7 +94,7 @@ function reMasking(elem, type){
             var day = (dmy[0]*1).toString().length === 1 ? "0" + dmy[0]*1 : dmy[0]*1
             var age = dateToAge(date, new Date())
             if(elem.getAttribute("inputPre")){
-                Elem("newReg-ttl-pre").value = [dmy[2]*1, mo, day].join("-")
+                Elem(elem.getAttribute("inputPre")).value = [dmy[2]*1, mo, day].join("-")
             }
             if(elem.getAttribute("age-output")){
                 var outElems = elem.getAttribute("age-output").split(";") 
@@ -147,8 +147,8 @@ function manualToTTL(day, month, year, date){
     var month1 = date1.getMonth() - month
     var day1 = date1.getDate() - day
 
-    if(day1 < 1){day1 + 30; month1--}
-    if(month1 < 0){month1 + 11; year1--}
+    if(day1 < 1){day1 += 30; month1--}
+    if(month1 < 0){month1 += 12; year1--}
     
     ttl = new Date(year1, month1, day1)
     return ttl
@@ -161,25 +161,68 @@ function dateToInput(date){
     if(day.toString().length === 1){day = "0" + day}
     return d.getFullYear() + "-" + mo + "-" + day
 }
-// function openPicker(inputDateElem) {
-//     var ev = document.createEvent('KeyboardEvent');
-//     ev.initKeyboardEvent('keydown', true, true, document.defaultView, 'F4', 0);
-//     inputDateElem.dispatchEvent(ev);
-// }
-// function maskingDate(elem){
-//     // var value = elem.value
-//     function j(value){
-//     //   const maskDate = value => {
-//         let v = value.replace(/\D/g,'').slice(0, 10);
-//         if (v.length >= 5) {
-//           return `${v.slice(0,2)}/${v.slice(2,4)}/${v.slice(4)}`;
-//         }
-//         else if (v.length >= 3) {
-//           return `${v.slice(0,2)}/${v.slice(2)}`;
-//         }
-//         return v
-//     //   }
-//     }
-
-//   elem.value = j(elem.value)
-// }
+function dateToInputMask(date){
+    var d = new Date(date)
+    var mo = d.getMonth() + 1
+    if(mo.toString().length === 1){mo = "0" + mo}
+    var day = d.getDate()
+    if(day.toString().length === 1){day = "0" + day}
+    return day + "-" + mo + "-" + d.getFullYear() 
+}
+function datePreChange(elem){
+    var ymd = elem.value.toString().split("-")
+    var targetElem = Elem(elem.getAttribute("for"))
+    var mo = (ymd[1]*1).toString().length === 1 ? "0" + (ymd[1]*1) : (ymd[1]*1)
+    var day = (ymd[2]*1).toString().length === 1 ? "0" + ymd[2]*1 : ymd[2]*1
+    targetElem.value = [day,mo,ymd[0]].join('-')
+    if(targetElem.getAttribute("age-output")){
+        var outElems = targetElem.getAttribute("age-output").split(";")
+        var age = dateToAge(new Date(elem.value), new Date())
+        Elem(outElems[0]).value = age.year
+        Elem(outElems[1]).value = age.month
+        Elem(outElems[2]).value = age.day
+    }
+}
+function generateRM(type){
+    var namalengkap = type == "new" ? Elem("newReg-nama").value : Elem("editPat-nama").value
+    if(namalengkap == ""){
+        alert("Nama masih kosong")
+        type == "new" ? Elem("newReg-nama").focus() : Elem("editPat-nama").focus()
+        return
+    }
+    var year = new Date().getFullYear().toString().substring(2)
+    var lastRM = checkingLastRM(year + "-" + namalengkap.substring(0,1).toUpperCase())
+    var newRM = "0".repeat(4 - (lastRM+1).toString().length) + (lastRM+1)
+    var newRMText = year + "-" + namalengkap.substring(0,1).toUpperCase() + "-" + newRM 
+    type == "new" ? Elem("newReg-norm").value = newRMText : Elem("editPat-norm").value = newRMText
+}
+function autoNoRM(nama, type){
+    if(nama == ""){
+        type == "new" ? Elem("newReg-norm").value = "" : Elem("editPat-norm").value = ""
+    } else {
+        generateRM(type)
+    }
+}
+function setJam(elem, targetID){
+    var today = new Date()
+    if(elem.value == dateToInput(today)){
+        if(today.getHours()<9){
+            Elem(targetID).value = "Pagi"
+            Elem(targetID).querySelector("option:nth-child(1)").disabled = false
+            Elem(targetID).querySelector("option:nth-child(2)").disabled = false
+        }
+        if(today.getHours()>8 && today.getHours()<19){
+            Elem(targetID).value = "Sore"
+            Elem(targetID).querySelector("option:nth-child(1)").disabled = true    
+        }
+        if(today.getHours()>18){
+            Elem(targetID).value = ""
+            Elem(targetID).querySelector("option:nth-child(1)").disabled = true
+            Elem(targetID).querySelector("option:nth-child(2)").disabled = true
+        }
+    } else {
+        Elem(targetID).value = "Pagi"
+        Elem(targetID).querySelector("option:nth-child(1)").disabled = false
+        Elem(targetID).querySelector("option:nth-child(2)").disabled = false
+    }
+}

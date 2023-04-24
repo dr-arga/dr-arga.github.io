@@ -15,14 +15,14 @@ developing(true)
 
 async function developing(bo){
     if(bo){
-        // Elem("login-username").value = "Arga"
-        // Elem("login-password").value = "radenr0r0"
-        // login()
-        Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html")
-        await includeHTML(document.querySelector("body"))
         HideDiv()
+        await includeHTML(document.querySelector("body"))
+        Elem("login-username").value = "Arga"
+        Elem("login-password").value = "radenr0r0"
+        await login()
+        // Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html")
         NavTo(Elem('nav-home'))
-        setTimeout(NewPatient,1000)
+        // setTimeout(NewPatient,1000)
     }
 }
 

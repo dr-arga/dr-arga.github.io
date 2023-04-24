@@ -19,8 +19,9 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="00-a-0000" aria-label="Nomor RM"
                                 autocomplete="off" id="editPat-norm" oninput="reMasking(this, 'noRM')">
+                            <input type="text" class="d-none" id="editPat-noRMBefore">
                             <button class="input-group-text btn btn-primary" id=""
-                                onclick="editPat_generateRM()">Generate</button>
+                                onclick="generateRM('edit')">Generate</button>
                         </div>
                     </div>
                 </div>
@@ -29,7 +30,7 @@
                         <label for="editPat-nama" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control mb-2" placeholder="Nama Lengkap" id="editPat-nama"
                             autocomplete="off" aria-label="Nama Lengkap" aria-describedby="Nama Lengkap"
-                            oninput="reMasking(this, 'upperCase');">
+                            oninput="reMasking(this, 'upperCase'); autoNoRM(this.value, 'edit')">
                         <div>
                             <label for="editPat-gender" class="form-label">Kelamin</label>
                         </div>
@@ -45,9 +46,15 @@
                     <div class="col-md-6 col-12 ttl-container">
                         <label for="editPat-ttl" class="form-label">Tanggal Lahir</label>
                         <div class="input-group mb-2">
-                            <input type="date" class="form-control" placeholder="Tanggal Lahir"
-                                aria-label="Tanggal Lahir" aria-describedby="Tanggal Lahir"
-                                onchange="editPat_ttlToAge()" id="editPat-ttl" autocomplete="off">
+                            <input type="text" class="form-control" placeholder="Tanggal Lahir"
+                                aria-label="Tanggal Lahir" oninput="reMasking(this,'tanggal')"
+                                aria-describedby="Tanggal Lahir" id="editPat-ttl" inputPre="editPat-ttl-pre"
+                                age-output="editPat-tahun;editPat-bulan;editPat-hari" autocomplete="off">
+                            <span class="input-group-text"
+                                onclick="Elem('editPat-ttl-pre').focus(); Elem('editPat-ttl-pre').showPicker()"><i
+                                    class="fa-solid fa-calendar-days"></i></span>
+                            <input type="date" class="datePre" id="editPat-ttl-pre" for="editPat-ttl"
+                                onchange="datePreChange(this)">
                             <input type="checkbox" class="btn-check" id="editpat-manual-ttl" autocomplete="off">
                             <label class="btn btn-outline-primary" for="editpat-manual-ttl">Manual
                                 Usia</label>

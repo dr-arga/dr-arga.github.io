@@ -1,3 +1,4 @@
+// var EditReservasiID = ""
 function antrianNav(elem){
     var w = document.querySelector("body").offsetWidth
     if(w < 993 && document.querySelector(".home-antrian-container").classList.contains("notFull")){
@@ -20,7 +21,6 @@ function homeSearchFilterReset(){
     homeSearch(Elem("home-search-norm"))
 }
 function homeFS(bo){
-    console.log(bo)
     if(bo){document.querySelector(".home-antrian-container").classList.remove('notFull')}
     else {document.querySelector(".home-antrian-container").classList.add('notFull')}
 }
@@ -36,7 +36,23 @@ function HomeReset(){
     var table = Elem("home-search-tableBody")
     table.innerHTML = ""
     homeSearchFilterReset()
+    
+    var today = new Date()
+    var antriJam = "Pagi"
+    var antriTgl = dateToInput(today)
+    if(today.getHours()<9){antriJam = "Pagi"}
+    if(today.getHours()>8 && today.getHours()<19){
+        antriJam = "Sore"    
+    }
+    if(today.getHours()>18){
+        var tomorrow = new Date();
+        tomorrow.setDate(today.getDate()+1)
+        antriTgl = dateToInput(tomorrow)
+    } 
+    Elem("antrian-date").value = antriTgl
+    Elem("antrian-jam").value = antriJam
     UpdateAntrian()
+    EditReservasiID = ""
 }
 function homeSearch(elem){
     var elemType = elem.id.substring(12)
@@ -157,6 +173,43 @@ function PasienCard(elem){
     Elem("pasien-card-ibuNama").innerHTML = item.ibuNama
     Elem("pasien-card-ibuPek").innerHTML = item.ibuPek
 }
+async function daftarAntrianCard(){
+    var noRM = Elem("pasien-card-noRM").innerHTML
+    if(noRM.substring(0,1) !== "-" && confirm("Daftar antrian baru?")){
+        var today = new Date()
+        var antriJam = "Pagi"
+        var antriTgl = dateToInput(today)
+        if(today.getHours()<9){antriJam = "Pagi"}
+        if(today.getHours()>8 && today.getHours()<19){
+            antriJam = "Sore"
+        }
+        if(today.getHours()>18){
+            var tomorrow = new Date();
+            tomorrow.setDate(today.getDate()+1)
+            antriTgl = dateToInput(tomorrow)
+        } 
+        var url = dbAPI + "?req=newAntrian"
+        +"&soapTgl="+antriTgl
+        +"&soapJam="+antriJam
+        +"&noRM="+noRM
+        +"&soapStatus=Antri"
+        
+        spinner(true)
+        console.log("Daftar Antrian....")
+        await fetch(url)
+        .then((respon) => respon.json())
+        .then((respon) => {
+            if(respon.ok){
+                // console.log(respon)
+                console.log("respon ok..")
+                database.soapDB = respon.soapData
+                console.log(database)
+            }
+        })
+        HomeReset()
+        spinner(false)
+    }
+}
 function UpdateAntrian(){
     var navAntri = Elem("antrian-nav-antri")
     var navSelesai = Elem("antrian-nav-selesai")
@@ -167,7 +220,15 @@ function UpdateAntrian(){
 
     var dataAntri = Object.values(database.soapDB).filter((a)=>{return a.soapStatus == "Antri"}).sort((a,b)=>{return new Date(a.antriTime) - new Date(b.antriTime)})
     var dataSelesai = Object.values(database.soapDB).filter((a)=>{return (a.soapStatus == "Selesai") || (a.soapStatus == "Batal") }).sort((a,b)=>{return new Date(a.selesaiTime) - new Date(b.selesaiTime)})
-    var dataReservasi = Object.values(database.reservasiDB).sort((a,b)=>{return new Date(a.Timestamp) - new Date(b.Timestamp)})
+    var dataReservasi = Object.values(database.reservasiDB)
+        .sort((a,b)=>{
+            function status(item){
+                if(item.resStatus == "saved"){return 1}
+                else{return 0}
+            }
+            return status(a) - status(b) || new Date(a.Timestamp) - new Date(b.Timestamp)
+        })
+        // .sort((a,b)=>{return b.resStatus - a.resStatus || new Date(a.Timestamp).localCaom - new Date(b.Timestamp)})
     
     document.querySelector(".antrian-nav-btn-container > div:nth-child(1) span").innerHTML = dataAntri.length
     document.querySelector(".antrian-nav-btn-container > div:nth-child(2) span").innerHTML = dataSelesai.length
@@ -203,20 +264,143 @@ function UpdateAntrian(){
             +"</div>"
         navSelesai.innerHTML += SelesaiDiv  
     }
+    var nResAvail = 0
     for(var i = 0; i < dataReservasi.length; i++){
         var resItem = dataReservasi[i]
         var timeReservasi = new Date(resItem.Timestamp)
+        var isSaved = false
+        if(resItem.resStatus == "saved"){isSaved = true; var nRes = "-"}
+        else{nResAvail++; var nRes = nResAvail}
         var resDiv = 
-            "<div class='antrian-list-item'>"
-                +"<div class='antrian-item-number'>"+(i+1)+"</div>"
+            "<div class='antrian-list-item saved-"+isSaved+"'>"
+                +"<div class='antrian-item-number'>"+nRes+"</div>"
                 +"<div>"
                     +"<div class='antrian-item-time'>"+ timeReservasi +"</div>"
-                    +"<div class='antrian-item-name'>"+ resItem["Nama Lengkap"] +"</div>"
-                    // +"<div class='antrian-item-norm'>"+ soapItem.noRM +"</div>"
+                    +"<div class='antrian-item-name'>"+ resItem.namaLengkap.toUpperCase() +"</div>"
+                    +"<div class='antrian-item-norm'>NoRM:"+ resItem.noRM.toUpperCase() +"</div>"
                     +"<button class='btn btn-primary antrian-item-btn' onclick='selectReservasi("+resItem.resID+")'>action</button>"
                 +"</div>"
             +"</div>"
         navReservasi.innerHTML += resDiv  
     }
-    // console.log(new Date(database.soapDB[13].soapTgl))
+}
+async function getAntrian(){
+    var tgl = Elem("antrian-date").value
+    var jam = Elem("antrian-jam").value
+    if(tgl !== "" && jam !== ""){
+        spinner(true)
+        var url = dbAPI + "?req=getAntrianAll&date=" + tgl + "&jam="+jam
+        console.log("getAntrian....")
+        await fetch(url)
+        .then((respon) => respon.json())
+        .then((respon) => {
+            if(respon.ok){
+                // console.log(respon)
+                console.log("respon ok..")
+                database.soapDB = respon.soapData
+                database.reservasiDB = respon.reservasiData
+                console.log(database)
+            }
+        })
+        UpdateAntrian()
+        spinner(false)
+    }
+}
+async function selectReservasi(resID){
+    var resItem = database.reservasiDB[resID]
+    document.querySelectorAll(".modAn-bd-4").forEach((p)=>{
+        p.classList.remove("modAn-bd-different")
+    })
+    document.querySelectorAll(".modAn-bd-2").forEach((p)=>{
+        p.classList.remove("modAn-bd-edited")
+    })
+    Elem("modAn-bd-resID").innerHTML = resID
+    Elem("modAn-bd-antrian-date").value = dateToInput(resItem["Tanggal Reservasi"])
+    Elem("modAn-bd-antrian-jam").value = resItem["Jam Reservasi"]
+    if(resItem.noRM !== ""){
+        var noRM = resItem.noRM.toUpperCase()
+        var foundPatientID = database.pasienDB[resItem.noRM.toUpperCase()]
+        if(foundPatientID){
+            modResHide(false)
+            updModRes("Both", resID, noRM)
+        }
+        else{
+            alert("Data nomor RM tidak ditemukan")
+            modResHide(true)
+            updModRes("Res", resID)    
+        }
+    } else {
+        modResHide(true)
+        updModRes("Res", resID)
+    }
+
+    Elem("reservasiAction_btn").click()
+    
+    function modResHide(bo){
+        if(bo){
+            document.querySelectorAll(".modAn-bd-hidden").forEach((p)=>{
+                p.classList.add("d-none")
+            })
+        } else {
+            document.querySelectorAll(".modAn-bd-hidden").forEach((p)=>{
+                p.classList.remove("d-none")
+            })
+        }
+    }
+    function updModRes(type, RMresID, noRM){
+        var variable = ["namaLengkap", "gender", "alamat", "ayahNama", "ayahPek", "ibuNama", "ibuPek", "telp", "email", "uk", "bbl", "pbl", "lkl"]
+        if(type == "Res"){
+            var resItem = database.reservasiDB[resID]
+            console.log(resItem)
+            for(var i = 0; i<variable.length; i++){
+                var itemVar = variable[i]
+                Elem("modAn-"+itemVar+"-new").value = resItem[itemVar] 
+            }
+            if(resItem.ttl == ""){Elem("modAn-"+ttl+"-new").value = ""}
+            else {
+                console.log(dateToInput(resItem.ttl))
+            }
+            Elem("modAn-ttl-new").value = resItem.ttl !== "" ? dateToInputMask(resItem.ttl) : "" 
+        }
+        if(type == "Both"){
+            var resItem = database.reservasiDB[resID]
+            var oldItem = database.pasienDB[noRM]
+            Elem("modAn-bd-noRM").innerHTML = noRM
+            console.log(resItem)
+            for(var i = 0; i<variable.length; i++){
+                var itemVar = variable[i]
+                Elem("modAn-"+itemVar+"-new").value = resItem[itemVar]
+                Elem("modAn-"+itemVar+"-old").value = oldItem[itemVar]
+                if(resItem[itemVar] !== "" && resItem[itemVar] !== oldItem[itemVar]){
+                    document.querySelector("div:has(>#modAn-"+itemVar+"-new)").classList.add("modAn-bd-different")
+                }
+            }
+            Elem("modAn-ttl-new").value = resItem.ttl !== "" ? dateToInputMask(resItem.ttl) : ""
+            console.log(oldItem)
+            Elem("modAn-ttl-old").value = oldItem.ttl !== "" ? dateToInputMask(oldItem.ttl) : ""
+        }
+    }
+}
+function modAnEdited(elem){
+    var elemId = elem.id
+    var noRM = document.querySelector(".modAn-bd-body:has(#"+elemId+") #modAn-bd-noRM").innerHTML
+    var pasienVar = elemId.substring(6,elemId.indexOf("-",6))
+    var oldData = database.pasienDB[noRM][pasienVar]
+    console.log("oldData="+oldData)
+    if(pasienVar !== "ttl"){
+        if(elem.value !== oldData){
+            document.querySelector("div:has(>#"+elemId).classList.add("modAn-bd-edited")
+        } else {
+            document.querySelector("div:has(>#"+elemId).classList.remove("modAn-bd-edited")
+        }
+    } else {
+        console.log("ttl edited")
+        console.log(elem.value)
+        console.log(dateToInputMask(oldData))
+        if(elem.value !== dateToInputMask(oldData)){
+            document.querySelector("div:has(>#"+elemId).classList.add("modAn-bd-edited")
+        } else {
+            document.querySelector("div:has(>#"+elemId).classList.remove("modAn-bd-edited")
+        }
+    }
 }

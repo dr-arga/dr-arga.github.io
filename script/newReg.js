@@ -24,7 +24,7 @@ function NewPatient(){
             Elem("newReg-ayah-nama").value = newOT
             Elem("newReg-nama").oninput()
         }
-        var today = new Date(2023,3,24,13,1)
+        var today = new Date()
         var soapJam = "Pagi"
         var soapTgl = dateToInput(today)
         if(today.getHours()<9){soapJam = "Pagi"}
@@ -155,6 +155,7 @@ async function newReg_Simpan(antri){
                     alert("Data pasien baru telah disimpan")
                 }
                 console.log(database)
+                UpdateAntrian()
             }
         })
     }

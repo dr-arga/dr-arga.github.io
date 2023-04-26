@@ -176,7 +176,7 @@ div:has(#searching-filter-show:checked) + #advance-filter{
     flex-grow: 1;
     background-color: white;
     overflow: hidden;
-    padding: 10px 0 10px 10px;
+    padding: 10px 0 25px 10px;
 }
 .antrian-nav-page{
     height: 100%;
@@ -194,11 +194,16 @@ div:has(#searching-filter-show:checked) + #advance-filter{
     border-radius: 10px;
     margin-bottom: 10px;
 }
-
 .antrian-list-item > div:nth-child(2){
     padding: 5px;
     background-color: rgb(224, 224, 224);
     color: rgba(0, 0, 0, 0.71);
+}
+.antrian-list-item.saved-true{
+    background-color: rebeccapurple;
+}
+.antrian-list-item.saved-true > div:nth-child(2){
+    background-color: rgb(210, 165, 255);
 }
 .antrian-item-number{
     width: 70px;
@@ -234,7 +239,79 @@ div:has(#searching-filter-show:checked) + #advance-filter{
     display: none;
 }
 .antrian-list-item {overflow: hidden;}
-
+.antrian-date-container label{
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    color: white;
+}
+.modAn-bd-body > .row{
+    padding-bottom: 5px;
+    margin: 0;
+    /* background-color: aqua; */
+    border-bottom: 1px solid grey;
+}
+.modAn-bd-body > .row > div{
+    /* border: 1px solid grey; */
+    padding: 2px
+}
+.modAn-bd-body > div:nth-child(2){
+    min-width: 500px;
+}
+.modAn-bd-body > div:nth-child(2) > div{
+    min-width: 500px;
+    display: flex;
+    overflow: hidden;
+}
+.modAn-bd-body div > .modAn-bd-head{
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+.modAn-bd-body > div > div {
+    font-size: 0.8rem;
+}
+.modAn-bd-1{
+    font-weight: bold;
+    width: 80px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.modAn-bd-2{
+    /* overflow: hidden; */
+    width: 250px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.modAn-bd-3{
+    height: 100%;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 0;
+    overflow: hidden;
+}
+.modAn-bd-4{
+    overflow: hidden;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.modAn-bd-2 button, .modAn-bd-4 button{
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+.modAn-bd-2:has(button), .modAn-bd-4:has(button){
+    display: block;
+}
+.modAn-bd-edited{
+    border: 1px solid red !important;
+}
+.modAn-bd-different{
+    border: 1px solid red !important;
+}
 #home-modal{display: none;}
 #home-modal.modal-hidden{display: none;}
 @media (max-width: 992px){

@@ -1,3 +1,236 @@
+<div class="modal fade" id="reservasiAction" tabindex="-1" aria-labelledby="reservasiActionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-fullscreen-md-down modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title fs-5" id="reservasiActionLabel">
+                    <div>
+                        Data Pasien Reservasi
+                    </div>
+                    <div>
+                        No.Reservasi = <span id="modAn-bd-resID"></span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modAn-bd-body">
+                <div class="row m-0 mb-2">
+                    <div class="col-6">
+                        <label for="antrian-date" class="form-label">Tanggal antrian</label>
+                        <input type="date" class="form-control form-control-sm" id="modAn-bd-antrian-date"
+                            autocomplete="off">
+                    </div>
+                    <div class="col-6">
+                        <label for="antrian-jam" class="form-label">Jam antrian</label>
+                        <select class="form-select form-select-sm" id="modAn-bd-antrian-jam" autocomplete="off">
+                            <option value="Pagi" selected>Pagi</option>
+                            <option value="Sore">Sore</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="modAn-bd-1"></div>
+                        <div class="modAn-bd-2 modAn-bd-hidden modAn-bd-head" id="modAn-bd-noRM">23-M-0001</div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"></div>
+                        <div class="modAn-bd-4 modAn-bd-head">Info Baru</div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">Nama</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden"><input type="text" class="form-control form-control-sm"
+                                oninput="reMasking(this, 'upperCase')" onchange="modAnEdited(this)"
+                                value="ARGADIA YUNIRIYADI" id="modAn-namaLengkap-old">
+                        </div>
+                        <div class="modAn-bd-3 modAn-bd-hidden">
+                            <button class="btn"><i class="fa-solid fa-arrows-rotate"></i></button>
+                            <button class="btn"><i class="fa-solid fa-arrow-left"></i></button>
+                        </div>
+                        <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value="ARGA"
+                                disabled id="modAn-namaLengkap-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">Gender</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden">
+                            <select name="gender" class="form-select form-select-sm" id="modAn-gender-old"
+                                onchange="modAnEdited(this)">
+                                <option value="Lelaki">Lelaki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="modAn-bd-3 modAn-bd-hidden">
+                            <button class="btn"><i class="fa-solid fa-arrows-rotate"></i></button>
+                            <button class="btn"><i class="fa-solid fa-arrow-left"></i></button>
+                        </div>
+                        <div class="modAn-bd-4">
+                            <select name="gender" disabled class="form-select form-select-sm" id="modAn-gender-new">
+                                <option value="Lelaki">Lelaki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">TTL</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="d-m-y"
+                                oninput="reMasking(this,'tanggal')" onchange="modAnEdited(this)" id="modAn-ttl-old"
+                                inputPre="modAn-ttl-old-pre">
+                            <input type="date" class="datePre" id="modAn-ttl-old-pre" for="modAn-ttl-old"
+                                onchange="datePreChange(this)">
+                            <div class="input-group-text h-100"
+                                onclick="Elem('modAn-ttl-old-pre').focus(); Elem('modAn-ttl-old-pre').showPicker()">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </div>
+                        </div>
+                        <div class="modAn-bd-3 modAn-bd-hidden">
+                            <button class="btn"><i class="fa-solid fa-arrows-rotate"></i></button>
+                            <button class="btn"><i class="fa-solid fa-arrow-left"></i></button>
+                        </div>
+                        <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value=""
+                                id="modAn-ttl-new" disabled></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">alamat</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden modAn-bd-edited"><input type="text"
+                                class="form-control form-control-sm" onchange="modAnEdited(this)"
+                                value="Jl kjasd lkj adwdasd" id="modAn-alamat-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value=""
+                                disabled id="modAn-alamat-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">ayahNama</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden modAn-bd-edited"><input type="text"
+                                class="form-control form-control-sm" oninput="reMasking(this, 'upperCase')"
+                                onchange="modAnEdited(this)" value="ARGADIA YUNIRIYADI" id="modAn-ayahNama-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4 modAn-bd-different"><input type="text"
+                                class="form-control form-control-sm" value="ARGA" disabled id="modAn-ayahNama-new">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">ayahPek</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden modAn-bd-edited"><input type="text"
+                                class="form-control form-control-sm" oninput="reMasking(this, 'upperCase')"
+                                onchange="modAnEdited(this)" value="SWASTA" id="modAn-ayahPek-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4 modAn-bd-different"><input type="text"
+                                class="form-control form-control-sm" value="TNI" disabled id="modAn-ayahPek-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">ibuNama</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden"><input type="text" class="form-control form-control-sm"
+                                oninput="reMasking(this, 'upperCase')" onchange="modAnEdited(this)"
+                                value="ARGADIA YUNIRIYADI" id="modAn-ibuNama-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value="ARGA"
+                                disabled id="modAn-ibuNama-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">ibuPek</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden"><input type="text" class="form-control form-control-sm"
+                                oninput="reMasking(this, 'upperCase')" onchange="modAnEdited(this)"
+                                value="ARGADIA YUNIRIYADI" id="modAn-ibuPek-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value="ARGA"
+                                disabled id="modAn-ibuPek-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">telp</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden"><input type="text" class="form-control form-control-sm"
+                                onchange="modAnEdited(this)" oninput="reMasking(this, 'telp')" value="12312334123"
+                                id="modAn-telp-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4 modAn-bd-different"><input type="text"
+                                class="form-control form-control-sm" value="" disabled id="modAn-telp-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">email</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden"><input type="text" class="form-control form-control-sm"
+                                onchange="modAnEdited(this)" oninput="reMasking(this, 'email')" value=""
+                                id="modAn-email-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm"
+                                value="aawdawd@dawd.com" disabled id="modAn-email-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">uk</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden"><input type="text" class="form-control form-control-sm"
+                                oninput="reMasking(this, 'uk')" onchange="modAnEdited(this)" value="38"
+                                id="modAn-uk-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value="38"
+                                disabled id="modAn-uk-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">bbl</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden"><input type="number"
+                                class="form-control form-control-sm" onchange="modAnEdited(this)" min="300" max="6000"
+                                placeholder="gram" value="ARGADIA YUNIRIYADI" id="modAn-bbl-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4"><input type="number" class="form-control form-control-sm" value=""
+                                placeholder="gram" disabled id="modAn-bbl-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">pbl</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden"><input type="number"
+                                class="form-control form-control-sm" onchange="modAnEdited(this)" placeholder="cm"
+                                value="34" id="modAn-pbl-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value="35"
+                                disabled id="modAn-pbl-new"></div>
+                    </div>
+                    <div>
+                        <div class="modAn-bd-1">lkl</div>
+                        <div class="modAn-bd-2 modAn-bd-hidden"><input type="number"
+                                class="form-control form-control-sm" onchange="modAnEdited(this)" value="33"
+                                id="modAn-lkl-old"></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
+                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
+                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-4"><input type="number" class="form-control form-control-sm" value=""
+                                disabled id="modAn-lkl-new"></div>
+                    </div>
+                    <div class="modAn-bd-btn">
+                        <div class="modAn-bd-1"></div>
+                        <div class="modAn-bd-2 modAn-bd-hidden">
+                            <button type="button" class="btn btn-primary">Antri This</button>
+                            <button type="button" class="btn btn-primary">Update</button>
+                            <button type="button" class="btn btn-primary">Update + Antri</button>
+                        </div>
+                        <div class="modAn-bd-3 modAn-bd-hidden"></div>
+                        <div class="modAn-bd-4">
+                            <button type="button" class="btn btn-primary">Buat Baru</button>
+                            <button type="button" class="btn btn-primary">Buat Baru + Antri</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 <div class="" id="home-container">
     <div class="home-pasien-container">
         <div class="pasien-card">
@@ -29,7 +262,7 @@
                     </div>
                 </div>
                 <div class="pasien-card-btn-container">
-                    <button class="btn btn-primary">Daftar Antrian</button>
+                    <button class="btn btn-primary" onclick="daftarAntrianCard()">Daftar Antrian</button>
                     <button class="btn btn-primary" onclick="editPatient()">Edit</button>
                 </div>
             </div>
@@ -95,90 +328,6 @@
                                     <div>ABRI</div>
                                 </td>
                                 <td>
-                                    <div>Siti Hajsij</div>
-                                    <div>-</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>23M001</td>
-                                <td>
-                                    <div>Argadia Yuniasiu ralkj rwrijasd</div>
-                                </td>
-                                <td>
-                                    <div>Sukabumoer, RT01, 012, Buppasd Boyoasdl, Jasdwd</div>
-                                </td>
-                                <td>
-                                    <div>12 Jun 2023</div>
-                                    <div>15 hari</div>
-                                </td>
-                                <td>
-                                    <div>Suhadi</div>
-                                    <div>ABRI</div>
-                                </td>
-                                <td>
-                                    <div>Siti Hajsij</div>
-                                    <div>-</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>23M001</td>
-                                <td>
-                                    <div>Argadia Yuniasiu ralkj rwrijasd</div>
-                                </td>
-                                <td>
-                                    <div>Sukabumoer, RT01, 012, Buppasd Boyoasdl, Jasdwd</div>
-                                </td>
-                                <td>
-                                    <div>12 Jun 2023</div>
-                                    <div>15 hari</div>
-                                </td>
-                                <td>
-                                    <div>Suhadi</div>
-                                    <div>ABRI</div>
-                                </td>
-                                <td>
-                                    <div>Siti Hajsij</div>
-                                    <div>-</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>23M001</td>
-                                <td>
-                                    <div>Argadia Yuniasiu ralkj rwrijasd</div>
-                                </td>
-                                <td>
-                                    <div>Sukabumoer, RT01, 012, Buppasd Boyoasdl, Jasdwd</div>
-                                </td>
-                                <td>
-                                    <div>12 Jun 2023</div>
-                                    <div>15 hari</div>
-                                </td>
-                                <td>
-                                    <div>Suhadi</div>
-                                    <div>ABRI</div>
-                                </td>
-                                <td>
-                                    <div>-</div>
-                                    <div>-</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>23M001</td>
-                                <td>
-                                    <div>Argadia Yuniasiu ralkj rwrijasd</div>
-                                </td>
-                                <td>
-                                    <div>Sukabumoer, RT01, 012, Buppasd Boyoasdl, Jasdwd</div>
-                                </td>
-                                <td>
-                                    <div>12 Jun 2023</div>
-                                    <div>15 hari</div>
-                                </td>
-                                <td>
-                                    <div>Suhadi</div>
-                                    <div>ABRI</div>
-                                </td>
-                                <td>
                                     <div>-</div>
                                     <div>-</div>
                                 </td>
@@ -193,10 +342,27 @@
     <div class="home-antrian-container notFull bg-secondary">
         <button class="antrian-modal-close" onclick="homeFS(false)"><i class="fa-solid fa-arrow-right"></i></button>
         <div class="antrian-head-container">Daftar Antrian</div>
-        <div class="antrian-date-container p-2"><input class="form-control" type="date" name="" id="antrian-date"></div>
+        <div class="row m-0 antrian-date-container mb-2">
+            <div class="col-6">
+                <label for="antrian-date" class="form-label">Tanggal</label>
+                <input type="date" class="form-control form-control-sm" id="antrian-date" autocomplete="off">
+            </div>
+            <div class="col-4">
+                <label for="antrian-jam" class="form-label">Jam</label>
+                <select class="form-select form-select-sm" id="antrian-jam" autocomplete="off">
+                    <option value="Pagi" selected>Pagi</option>
+                    <option value="Sore">Sore</option>
+                </select>
+            </div>
+            <div class="col-2 h-100 d-flex flex-column justify-content-end p-0 pe-1 m-0 align-items-end">
+                <button class="btn btn-primary" style="font-size: 0.8rem;" onclick="getAntrian()">Go</button>
+            </div>
+        </div>
         <div class="antrian-nav-btn-container">
             <div onclick="antrianNav(this)" for="antri" class="antrian-nav-btn active">Antri <span>1</span></div>
-            <div onclick="antrianNav(this)" for="selesai" class="antrian-nav-btn">Selesai <span>0</span></div>
+            <div onclick="antrianNav(this)" id="antrian-nav-btn-selesai" for="selesai" class="antrian-nav-btn">Selesai
+                <span>0</span>
+            </div>
             <div onclick="antrianNav(this)" for="reservasi" class="antrian-nav-btn">Reservasi <span>0</span></div>
         </div>
         <div class="antrian-nav-container">
@@ -284,3 +450,8 @@
 <div id="home-modal" class="modal-hidden">
     <div id="home-modal-includes" w3-include-html="" class="include-HTML"></div>
 </div>
+
+<button type="button" class="btn btn-primary d-none" id="reservasiAction_btn" data-bs-toggle="modal"
+    data-bs-target="#reservasiAction">
+    Launch demo modal
+</button>

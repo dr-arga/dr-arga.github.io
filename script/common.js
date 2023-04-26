@@ -1,5 +1,5 @@
 var klinikAPI = "https://script.google.com/macros/s/AKfycbyzJ2kU3ZZXryLNrBFo0jiw-rgdM-R_WIrudW9o7wbrZruBTbfKDsuc3WNQIm9mTJrk/exec"
-var dbAPI = "https://script.google.com/macros/s/AKfycbzKoNhpCIFtemPC0tWxJ8u5fIzzazgAj70p1jrSI81yXfg24DIhCeuRobjOUGxjDYln/exec"
+var dbAPI = "https://script.google.com/macros/s/AKfycbxypxG_vsqLAaPdmj_n8WBaev6mii5uaeb-Q6qUJMOFzK-Ubffq3m57fQcwDEwDXyVz/exec"
 
 var database = {
     color:{
@@ -182,6 +182,7 @@ function datePreChange(elem){
         Elem(outElems[1]).value = age.month
         Elem(outElems[2]).value = age.day
     }
+    targetElem.onchange()
 }
 function generateRM(type){
     var namalengkap = type == "new" ? Elem("newReg-nama").value : Elem("editPat-nama").value

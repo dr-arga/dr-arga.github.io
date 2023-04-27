@@ -17,7 +17,7 @@ function NewPatient(){
     }
     
     setTimeout(function(){
-        Elem("newReg-norm").value = new Date().getFullYear().toString().substring(2);
+        // Elem("newReg-norm").value = new Date().getFullYear().toString().substring(2);
         if(newData){
             Elem("newReg-nama").value = newName
             Elem("newReg-alamat").value = newAlamat
@@ -79,13 +79,17 @@ function nR_manualToTTL(){
 
     Elem('newReg-ttl').value = dayStr +"-"+monthStr+"-"+ ttl.getFullYear()
 }
+
 async function newReg_Simpan(antri){
     var namalengkap = Elem("newReg-nama").value
     if(namalengkap == ""){alert("Nama masih kosong"); Elem("newReg-nama").focus(); return}
 
     var noRM = Elem("newReg-norm").value
     if(noRM == ""){
-        if(confirm("Nomor RM kosong. Buat nomor RM otomatis?")){newReg_generateRM()} 
+        if(confirm("Nomor RM kosong. Buat nomor RM otomatis?")){
+            Elem("newPatienRM-btn").click()
+            // autoNoRM(Elem("newReg-norm").value, "new")
+        } 
         else {Elem("newReg-norm").focus(); return;}
     }
 
@@ -100,8 +104,6 @@ async function newReg_Simpan(antri){
     var ayahNama = Elem("newReg-ayah-nama").value; var ayahPek = Elem("newReg-ayah-pekerjaan").value
     var ibuNama = Elem("newReg-ibu-nama").value; var ibuPek = Elem("newReg-ibu-pekerjaan").value
     if(ayahNama == "" && ibuNama == ""){alert("Salah satu nama orangtua harus diisi"); Elem("newReg-ayah-nama").focus(); return}
-    
-    
     
     var urlPasienSimpan = "&noRM=" + noRM
         + "&namaLengkap=" + namalengkap
@@ -126,6 +128,9 @@ async function newReg_Simpan(antri){
 
     if(antri !== undefined){
         if(!(confirm("Simpan data pasien baru dan lanjut antrian?"))){return}
+        if(Elem("newReg-tglAntri").value == "" || Elem("newReg-jamAntri").value == ""){
+            alert("Tanggal antrian belum diisi"); return
+        }
         var url = dbAPI + "?req=newPatient_Antri" + urlPasienSimpan + urlAntrianBaru
         
     } else {
@@ -161,22 +166,4 @@ async function newReg_Simpan(antri){
     }
 }
 
-function checkingLastRM(value){
-    var nDB = 0;
-    var RMArr = [];
-    var db = database.pasienDB
-    var noRMList = Object.keys(db)
-    while(nDB < noRMList.length){
-        // var item = database.pasienDB[nDB]
-        var noRM = noRMList[nDB]
-        if(noRM.toString().substring(0,4) == value){
-            RMArr.push(noRM.toString().substring(5)*1)
-        }
-        nDB++
-    }
-    var lastRM = 0
-    if(RMArr.length > 0){
-        lastRM = Math.max(...RMArr)
-    }
-    return lastRM
-}
+

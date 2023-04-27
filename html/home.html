@@ -13,7 +13,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body modAn-bd-body">
-                <div class="row m-0 mb-2">
+                <div class="row m-0 mb-2 modAn-bd-hidden">
                     <div class="col-6">
                         <label for="antrian-date" class="form-label">Tanggal antrian</label>
                         <input type="date" class="form-control form-control-sm" id="modAn-bd-antrian-date"
@@ -41,8 +41,12 @@
                                 value="ARGADIA YUNIRIYADI" id="modAn-namaLengkap-old">
                         </div>
                         <div class="modAn-bd-3 modAn-bd-hidden">
-                            <button class="btn"><i class="fa-solid fa-arrows-rotate"></i></button>
-                            <button class="btn"><i class="fa-solid fa-arrow-left"></i></button>
+                            <button class="btn" onclick="modAn('reset',this)">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                            <button class="btn" onclick="modAn('copy',this)">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
                         </div>
                         <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value="ARGA"
                                 disabled id="modAn-namaLengkap-new"></div>
@@ -57,8 +61,12 @@
                             </select>
                         </div>
                         <div class="modAn-bd-3 modAn-bd-hidden">
-                            <button class="btn"><i class="fa-solid fa-arrows-rotate"></i></button>
-                            <button class="btn"><i class="fa-solid fa-arrow-left"></i></button>
+                            <button class="btn" onclick="modAn('reset',this)">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                            <button class="btn" onclick="modAn('copy',this)">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
                         </div>
                         <div class="modAn-bd-4">
                             <select name="gender" disabled class="form-select form-select-sm" id="modAn-gender-new">
@@ -81,8 +89,12 @@
                             </div>
                         </div>
                         <div class="modAn-bd-3 modAn-bd-hidden">
-                            <button class="btn"><i class="fa-solid fa-arrows-rotate"></i></button>
-                            <button class="btn"><i class="fa-solid fa-arrow-left"></i></button>
+                            <button class="btn" onclick="modAn('reset',this)">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                            <button class="btn" onclick="modAn('copy',this)">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
                         </div>
                         <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value=""
                                 id="modAn-ttl-new" disabled></div>
@@ -92,9 +104,14 @@
                         <div class="modAn-bd-2 modAn-bd-hidden modAn-bd-edited"><input type="text"
                                 class="form-control form-control-sm" onchange="modAnEdited(this)"
                                 value="Jl kjasd lkj adwdasd" id="modAn-alamat-old"></div>
-                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
-                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
-                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden">
+                            <button class="btn" onclick="modAn('reset',this)">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                            <button class="btn" onclick="modAn('copy',this)">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
                         <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value=""
                                 disabled id="modAn-alamat-new"></div>
                     </div>
@@ -103,9 +120,14 @@
                         <div class="modAn-bd-2 modAn-bd-hidden modAn-bd-edited"><input type="text"
                                 class="form-control form-control-sm" oninput="reMasking(this, 'upperCase')"
                                 onchange="modAnEdited(this)" value="ARGADIA YUNIRIYADI" id="modAn-ayahNama-old"></div>
-                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
-                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
-                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden">
+                            <button class="btn" onclick="modAn('reset',this)">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                            <button class="btn" onclick="modAn('copy',this)">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
                         <div class="modAn-bd-4 modAn-bd-different"><input type="text"
                                 class="form-control form-control-sm" value="ARGA" disabled id="modAn-ayahNama-new">
                         </div>
@@ -115,9 +137,14 @@
                         <div class="modAn-bd-2 modAn-bd-hidden modAn-bd-edited"><input type="text"
                                 class="form-control form-control-sm" oninput="reMasking(this, 'upperCase')"
                                 onchange="modAnEdited(this)" value="SWASTA" id="modAn-ayahPek-old"></div>
-                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
-                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
-                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden">
+                            <button class="btn" onclick="modAn('reset',this)">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                            <button class="btn" onclick="modAn('copy',this)">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
                         <div class="modAn-bd-4 modAn-bd-different"><input type="text"
                                 class="form-control form-control-sm" value="TNI" disabled id="modAn-ayahPek-new"></div>
                     </div>
@@ -126,9 +153,14 @@
                         <div class="modAn-bd-2 modAn-bd-hidden"><input type="text" class="form-control form-control-sm"
                                 oninput="reMasking(this, 'upperCase')" onchange="modAnEdited(this)"
                                 value="ARGADIA YUNIRIYADI" id="modAn-ibuNama-old"></div>
-                        <div class="modAn-bd-3 modAn-bd-hidden"><button class="btn" onclick="modAn('reset',this)"><i
-                                    class="fa-solid fa-arrows-rotate"></i></button><button class="btn"
-                                onclick="modAn('copy',this)"><i class="fa-solid fa-arrow-left"></i></button></div>
+                        <div class="modAn-bd-3 modAn-bd-hidden">
+                            <button class="btn" onclick="modAn('reset',this)">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                            <button class="btn" onclick="modAn('copy',this)">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
                         <div class="modAn-bd-4"><input type="text" class="form-control form-control-sm" value="ARGA"
                                 disabled id="modAn-ibuNama-new"></div>
                     </div>
@@ -218,8 +250,7 @@
                         </div>
                         <div class="modAn-bd-3 modAn-bd-hidden"></div>
                         <div class="modAn-bd-4">
-                            <button type="button" class="btn btn-primary">Buat Baru</button>
-                            <button type="button" class="btn btn-primary">Buat Baru + Antri</button>
+                            <button type="button" class="btn btn-primary" onclick="copyResToNew()">Buat Baru</button>
                         </div>
                     </div>
                 </div>

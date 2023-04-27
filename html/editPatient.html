@@ -20,7 +20,7 @@
                                 autocomplete="off" id="editPat-norm" oninput="reMasking(this, 'noRM')">
                             <input type="text" class="d-none" id="editPat-noRMBefore">
                             <button class="input-group-text btn btn-primary" id=""
-                                onclick="generateRM('edit')">Generate</button>
+                                onclick="generateRMManual('edit')">Generate: New</button>
                         </div>
                     </div>
                 </div>
@@ -61,31 +61,45 @@
                         <div class="row m-0 p-0 ttl-manual-container">
                             <div class="col-4 p-0 m-0 px-1">
                                 <label for="editPat-tahun" class="form-label">Tahun</label>
-                                <input type="number" oninput="nR_manualToTTL()" class="form-control  mb-2"
+                                <input type="number" oninput="ed_manualToTTL()" class="form-control  mb-2"
                                     placeholder="Tahun" aria-label="Tahun" id="editPat-tahun" aria-describedby="Tahun"
                                     min="0" autocomplete="off">
                             </div>
                             <div class="col-4 p-0 m-0 px-1">
                                 <label for="editPat-bulan" class="form-label">Bulan</label>
-                                <input type="number" oninput="nR_manualToTTL()" class="form-control  mb-2"
+                                <input type="number" oninput="ed_manualToTTL()" class="form-control  mb-2"
                                     placeholder="Bulan" aria-label="Bulan" id="editPat-bulan" aria-describedby="Bulan"
                                     min="0" max="11" autocomplete="off">
                             </div>
                             <div class="col-4 p-0 m-0 px-1">
                                 <label for="editPat-hari" class="form-label">Hari</label>
-                                <input type="number" oninput="nR_manualToTTL()" class="form-control  mb-2"
+                                <input type="number" oninput="ed_manualToTTL()" class="form-control  mb-2"
                                     placeholder="Hari" aria-label="Hari" id="editPat-hari" aria-describedby="Hari"
                                     min="0" max="31" autocomplete="off">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row m-0 mb-4">
+                <div class="row m-0 mb-2">
                     <div class="col-12">
                         <label for="editPat-alamat" class="form-label">Alamat</label>
                         <textarea type="text" class="form-control mb-2" placeholder="Alamat" aria-label="Alamat"
                             id="editPat-alamat" autocomplete="off" style="font-size: 0.8rem;"
                             aria-describedby="Alamat"></textarea>
+                    </div>
+                </div>
+                <div class="row m-0">
+                    <div class="col-md-6 col-12">
+                        <label for="editPat-telp" class="form-label">No Hp / Telepon</label>
+                        <input type="text" class="form-control mb-2" placeholder="Telp" id="editPat-telp"
+                            autocomplete="off" aria-label="Telepon" aria-describedby="Telepon"
+                            oninput="reMasking(this, 'telp')">
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="editPat-email" class="form-label">Email</label>
+                        <input type="text" class="form-control mb-2" placeholder="aaaa@aa.aa" id="editPat-email"
+                            autocomplete="off" aria-label="Email" aria-describedby="Email"
+                            oninput="reMasking(this, 'email')">
                     </div>
                 </div>
                 <div class="row m-0">

@@ -182,27 +182,76 @@ function datePreChange(elem){
         Elem(outElems[1]).value = age.month
         Elem(outElems[2]).value = age.day
     }
-    targetElem.onchange()
+    // targetElem.onchange()
 }
-function generateRM(type){
-    var namalengkap = type == "new" ? Elem("newReg-nama").value : Elem("editPat-nama").value
-    if(namalengkap == ""){
-        alert("Nama masih kosong")
-        type == "new" ? Elem("newReg-nama").focus() : Elem("editPat-nama").focus()
-        return
+function generateRMManual(type){
+    var outputElem = type == "new" ? Elem("newReg-norm") : Elem("editPat-norm") 
+    var inputElem = type == "new" ? Elem("newReg-nama") : Elem("editPat-nama")
+    var namaLengkap = inputElem.value 
+    if(namaLengkap == "" || namaLengkap.replace(" ","").length == 0){
+        alert("Nama masih kosong"); inputElem.focus(); return
     }
+
+    if(type=="new"){
+        if(namaLengkap == "" || namaLengkap.replace(" ","").length == 0){
+            outputElem.value = ""
+        } else {
+            outputElem.value = generateNewRM(namaLengkap)
+        }
+    } else {
+        var oldRM = Elem("editPat-noRMBefore").value
+        if(namaLengkap == "" || namaLengkap.replace(" ","").length == 0 || namaLengkap.toString().substring(0,1) == oldRM.toString().substring(3,4)){
+            if(confirm("Membuat nomor RM baru berarti membuat data pasien baru.\nLanjut membuat data pasien baru dengan data yang sama?")){
+                copyOldRMToNewOne()
+            } else {
+                return
+            }
+        } else {
+            outputElem.value = generateNewRM(namaLengkap)
+        }
+    }
+}
+function generateNewRM(namalengkap){
     var year = new Date().getFullYear().toString().substring(2)
     var lastRM = checkingLastRM(year + "-" + namalengkap.substring(0,1).toUpperCase())
     var newRM = "0".repeat(4 - (lastRM+1).toString().length) + (lastRM+1)
-    var newRMText = year + "-" + namalengkap.substring(0,1).toUpperCase() + "-" + newRM 
-    type == "new" ? Elem("newReg-norm").value = newRMText : Elem("editPat-norm").value = newRMText
+    return year + "-" + namalengkap.substring(0,1).toUpperCase() + "-" + newRM
 }
 function autoNoRM(nama, type){
-    if(nama == ""){
-        type == "new" ? Elem("newReg-norm").value = "" : Elem("editPat-norm").value = ""
+    var outputElem = type == "new" ? Elem("newReg-norm") : Elem("editPat-norm") 
+    if(type=="new"){
+        if(nama == "" || nama.replace(" ","").length == 0){
+            outputElem.value = ""
+        } else {
+            outputElem.value = generateNewRM(nama)
+        }
     } else {
-        generateRM(type)
+        var oldRM = Elem("editPat-noRMBefore").value
+        if(nama == "" || nama.replace(" ","").length == 0 || nama.toString().substring(0,1) == oldRM.toString().substring(3,4)){
+            outputElem.value = oldRM
+        } else {
+            outputElem.value = generateNewRM(nama)
+        }
     }
+}
+function checkingLastRM(value){
+    var nDB = 0;
+    var RMArr = [];
+    var db = database.pasienDB
+    var noRMList = Object.keys(db)
+    while(nDB < noRMList.length){
+        // var item = database.pasienDB[nDB]
+        var noRM = noRMList[nDB]
+        if(noRM.toString().substring(0,4) == value){
+            RMArr.push(noRM.toString().substring(5)*1)
+        }
+        nDB++
+    }
+    var lastRM = 0
+    if(RMArr.length > 0){
+        lastRM = Math.max(...RMArr)
+    }
+    return lastRM
 }
 function setJam(elem, targetID){
     var today = new Date()
@@ -226,4 +275,45 @@ function setJam(elem, targetID){
         Elem(targetID).querySelector("option:nth-child(1)").disabled = false
         Elem(targetID).querySelector("option:nth-child(2)").disabled = false
     }
+}
+async function copyOldRMToNewOne(){
+    var idTypeArr = ["nama", "ttl", "tahun", "bulan", "hari", "alamat", "telp", "email", "ayah-nama", "ayah-pekerjaan", "ibu-nama", "ibu-pekerjaan", "uk", "bbl", "pbl", "lkl"]
+    var beforeVal = {}
+    for(var i = 0; i< idTypeArr.length; i++){
+        beforeVal[idTypeArr[i]] = Elem("editPat-" + idTypeArr[i]).value
+    }
+    beforeVal["gender"] = document.querySelector("[name='editpat-gender']:checked").id.toString().substring(15)
+    console.log(beforeVal)
+    closeEditPatient()
+    if(document.querySelector("body").offsetWidth > 992){
+        Elem("home-middle-container").setAttribute("w3-include-html", "/html/newRegister.html")
+        await includeHTML(Elem("home-container"))
+    }   
+    else {
+        Elem("home-modal-includes").setAttribute("w3-include-html", "/html/newRegister.html")
+        await includeHTML(Elem("home-modal"))
+        Elem("home-modal").classList.remove("modal-hidden")   
+    }
+    for(var i = 0; i< idTypeArr.length; i++){
+        Elem("newReg-" + idTypeArr[i]).value = beforeVal[idTypeArr[i]]
+    }
+    Elem("newreg-gender-" + beforeVal.gender).checked = true
+    reMasking(Elem("newReg-ttl"),'tanggal')
+    generateRMManual('new')
+
+    var today = new Date()
+    var soapJam = "Pagi"
+    var soapTgl = dateToInput(today)
+    if(today.getHours()<9){soapJam = "Pagi"}
+    if(today.getHours()>8 && today.getHours()<19){
+        soapJam = "Sore"
+        Elem("newReg-jamAntri").querySelector("option:nth-child(1)").disabled = true    
+    }
+    if(today.getHours()>18){
+        var tomorrow = new Date();
+        tomorrow.setDate(today.getDate()+1)
+        soapTgl = dateToInput(tomorrow)
+    }
+    Elem("newReg-jamAntri").value = soapJam
+    Elem("newReg-tglAntri").value = soapTgl
 }

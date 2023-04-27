@@ -356,10 +356,6 @@ async function selectReservasi(resID){
                 var itemVar = variable[i]
                 Elem("modAn-"+itemVar+"-new").value = resItem[itemVar] 
             }
-            if(resItem.ttl == ""){Elem("modAn-"+ttl+"-new").value = ""}
-            else {
-                console.log(dateToInput(resItem.ttl))
-            }
             Elem("modAn-ttl-new").value = resItem.ttl !== "" ? dateToInputMask(resItem.ttl) : "" 
         }
         if(type == "Both"){
@@ -376,8 +372,10 @@ async function selectReservasi(resID){
                 }
             }
             Elem("modAn-ttl-new").value = resItem.ttl !== "" ? dateToInputMask(resItem.ttl) : ""
-            console.log(oldItem)
             Elem("modAn-ttl-old").value = oldItem.ttl !== "" ? dateToInputMask(oldItem.ttl) : ""
+            if(Elem("modAn-ttl-new").value !== Elem("modAn-ttl-old").value){
+                document.querySelector("div:has(>#modAn-ttl-new)").classList.add("modAn-bd-different")
+            }
         }
     }
 }
@@ -386,7 +384,6 @@ function modAnEdited(elem){
     var noRM = document.querySelector(".modAn-bd-body:has(#"+elemId+") #modAn-bd-noRM").innerHTML
     var pasienVar = elemId.substring(6,elemId.indexOf("-",6))
     var oldData = database.pasienDB[noRM][pasienVar]
-    console.log("oldData="+oldData)
     if(pasienVar !== "ttl"){
         if(elem.value !== oldData){
             document.querySelector("div:has(>#"+elemId).classList.add("modAn-bd-edited")
@@ -394,13 +391,65 @@ function modAnEdited(elem){
             document.querySelector("div:has(>#"+elemId).classList.remove("modAn-bd-edited")
         }
     } else {
-        console.log("ttl edited")
-        console.log(elem.value)
-        console.log(dateToInputMask(oldData))
         if(elem.value !== dateToInputMask(oldData)){
             document.querySelector("div:has(>#"+elemId).classList.add("modAn-bd-edited")
         } else {
             document.querySelector("div:has(>#"+elemId).classList.remove("modAn-bd-edited")
         }
     }
+}
+function modAn(type, elem){
+    var noRM = Elem("modAn-bd-noRM").innerHTML
+    var parent = elem.closest("div:has(>.modAn-bd-3)")
+    if(type == "copy"){
+        parent.querySelector(".modAn-bd-2 > input").value = parent.querySelector(".modAn-bd-4 > input").value 
+        parent.querySelector(".modAn-bd-2 > input").onchange()
+    }
+    if(type == "reset"){
+        var oldInput = parent.querySelector(".modAn-bd-2 > input") || parent.querySelector(".modAn-bd-2 > select")
+        var pasienVar = oldInput.id.substring(6, oldInput.id.indexOf("-",6))
+        var oldData = database.pasienDB[noRM][pasienVar]
+        if(pasienVar !== "ttl"){
+            oldInput.value = oldData
+            oldInput.onchange()
+        } else {
+            oldInput.value = dateToInputMask(oldData)
+            oldInput.onchange()
+        }
+    }
+}
+async function copyResToNew(){
+    var resItem = database.reservasiDB[(Elem("modAn-bd-resID").innerHTML * 1)]
+    document.querySelector("#reservasiAction .btn-close").click()
+    if(document.querySelector("body").offsetWidth > 992){
+        Elem("home-middle-container").setAttribute("w3-include-html", "/html/newRegister.html")
+        await includeHTML(Elem("home-container"))
+    }   
+    else {
+        Elem("home-modal-includes").setAttribute("w3-include-html", "/html/newRegister.html")
+        await includeHTML(Elem("home-modal"))
+        Elem("home-modal").classList.remove("modal-hidden")   
+    }
+    Elem("newReg-tglAntri").value = dateToInput(resItem["Tanggal Reservasi"])
+    Elem("newReg-jamAntri").value = resItem["Jam Reservasi"]
+    Elem("newReg-nama").value = resItem.namaLengkap
+    autoNoRM(resItem.namaLengkap,"new")
+    if(resItem.gender == "Lelaki"){var genCode = 1} 
+    if(resItem.gender == "Perempuan"){var genCode = 2}
+    Elem("newreg-gender-1").checked = false
+    Elem("newreg-gender-2").checked = false
+    Elem("newreg-gender-" + genCode).checked = true
+    Elem("newReg-ttl").value = dateToInputMask(resItem.ttl)
+    reMasking(Elem("newReg-ttl"),'tanggal')
+    Elem("newReg-alamat").value = resItem.alamat
+    Elem("newReg-telp").value = resItem.telp
+    Elem("newReg-email").value = resItem.email
+    Elem("newReg-ayah-nama").value = resItem.ayahNama
+    Elem("newReg-ayah-pekerjaan").value = resItem.ayahPek
+    Elem("newReg-ibu-nama").value = resItem.ibuNama
+    Elem("newReg-ibu-pekerjaan").value = resItem.ibuPek
+    Elem("newReg-uk").value = resItem.uk
+    Elem("newReg-bbl").value = resItem.bbl
+    Elem("newReg-pbl").value = resItem.pbl
+    Elem("newReg-lkl").value = resItem.lkl
 }

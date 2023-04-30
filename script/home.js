@@ -160,6 +160,7 @@ function PasienCard(elem){
     var item = database.pasienDB[noRM]
     Elem("pasien-card-noRM").innerHTML = noRM
     Elem("pasien-card-name").innerHTML = item.namaLengkap
+    Elem("pasien-card-relasi").innerHTML = item.relasi
     Elem("pasien-card-gender").innerHTML = item.gender
     if(item.ttl !== ""){
         var ttl = new Date(item.ttl)
@@ -244,7 +245,7 @@ function UpdateAntrian(){
                     +"<div class='antrian-item-time'>"+ timeAntri +"</div>"
                     +"<div class='antrian-item-name'>"+ database.pasienDB[soapItem.noRM].namaLengkap +"</div>"
                     +"<div class='antrian-item-norm'>"+ soapItem.noRM +"</div>"
-                    +"<button class='btn btn-primary antrian-item-btn' onclick='selectAntrian("+soapItem.soapID+")'>action</button>"
+                    +"<button class='btn btn-primary antrian-item-btn' onclick='selectAntrian("+soapItem.soapID+", "+ (i+1) +")'>action</button>"
                 +"</div>"
             +"</div>"
         navAntri.innerHTML += antrianDiv  
@@ -452,4 +453,15 @@ async function copyResToNew(){
     Elem("newReg-bbl").value = resItem.bbl
     Elem("newReg-pbl").value = resItem.pbl
     Elem("newReg-lkl").value = resItem.lkl
+}
+function selectAntrian(soapID, antriUrut){
+    var soapItem = database.soapDB[soapID]
+    Elem("modAn-bd-antriID").innerHTML = soapID
+    if(antriUrut){
+        Elem("modAn-bd-antriUrut").innerHTML = antriUrut
+        document.querySelector("div:has(>#modAn-bd-antriUrut)").classList.remove("d-none")
+    } else {
+        document.querySelector("div:has(>#modAn-bd-antriUrut)").classList.add("d-none")
+    }
+    Elem("antrianAction_btn").click()
 }

@@ -12,8 +12,6 @@ function editPatient(){
     }
     setTimeout(function(){
         var item = database.pasienDB[noRM]
-            // if(item[0]==noRM){
-            //     console.log(item)
         Elem("editPat-norm").value = noRM
         Elem("editPat-noRMBefore").value = noRM
         Elem("editPat-nama").value = item.namaLengkap
@@ -46,34 +44,90 @@ function closeEditPatient(){
         Elem("home-modal").classList.add("modal-hidden")   
     }   
 }
-function editPat_ttlToAge(){
-    // var age = dateToAge(Elem("editPat-ttl").value, new Date())
-    // Elem('editPat-tahun').value = age.year
-    // Elem('editPat-bulan').value = age.month
-    // Elem('editPat-hari').value = age.day
-}
-function updPasien1(){
-    return
-    var namalengkap = Elem("editPat-nama").value
-    if(namalengkap == ""){alert("Nama masih kosong"); Elem("editPat-nama").focus(); return}
+async function editPat_Simpan(){
+    var curRM = Elem("editPat-norm").value
+    var oldRM = Elem("editPat-noRMBefore").value
 
-    var noRM = Elem("editPat-norm").value
-    if(noRM == ""){
-        if(confirm("Nomor RM kosong. Buat nomor RM otomatis?")){generateRM('edit')} 
-        else {Elem("newReg-norm").focus(); return;}
+    if(curRM !== oldRM){
+        var paramUrl = getParamUpdNew()
+        console.log(paramUrl)
+        if(paramUrl.isError){alert(paramUrl.errorText);return}
+        if(confirm("Terjadi perubahan nomor RM dari sebelumnya. \nMenyimpan data pasien baru dengan nomor RM baru dan menghapus data lama?")){
+            var paramUrl = getParamUpdNew()
+            var urlSend = dbAPI + "?req=updDelPatient" + paramUrl + "&noRMBefore=" + oldRM
+        } else {
+            return
+        }
+    } else {    
+        var paramUrl = getParamUpdNew()
+        console.log(paramUrl)
+        if(paramUrl.isError){alert(paramUrl.errorText);return}    
+        if(confirm("Kirim perubahan data?")){
+            var urlSend = dbAPI + "?req=updPatient" + paramUrl
+        } else {
+            return
+        }
     }
+    function getParamUpdNew(){
+        var urlText = ""
+        var paramTextArr = Object.keys(IDtoUrl)
+        for (var i = 0; i<paramTextArr.length; i++){
+            var key = paramTextArr[i]
+            if(key !== "gender"){
+                urlText += "&"+key+"="+Elem("editPat-"+IDtoUrl[key].id).value
+                if(key !== "ayahNama" && key !== "ibuNama"){
+                    if(IDtoUrl[key].required){
+                        var inputVal = Elem("editPat-"+IDtoUrl[key].id).value
+                        if(inputVal == "" || inputVal.replace(" ","").length === 0){
+                            // alert("Input " + key + " masih kosong")
+                            Elem("editPat-"+IDtoUrl[key].id).focus()
+                            var err = {isError:true,errorText:"Input " + key + " masih kosong"}
+                            return err
+                        }
+                    }
+                } else{
+                    var ayahNama = Elem("editPat-ayah-nama").value
+                    var ibuNama = Elem("editPat-ibu-nama").value
+                    // console.log(ayahNama == "")
+                    if( (ayahNama == "" || ayahNama.replace(" ","").length === 0) &&
+                        (ibuNama == "" || ibuNama.replace(" ","").length === 0)){
+                            // console.log("Masuk sini nggak")
+                            Elem("editPat-ayah-nama").focus()
+                            var err = {isError:true, errorText:"Salah satu input nama orangtua harus diisi"}
+                            return err
+                        }
+                }   
+            } else {
+                var gender = ""
+                if(Elem("editpat-gender-1").checked){gender = "Lelaki"}
+                if(Elem("editpat-gender-2").checked){gender = "Perempuan"}
+                if(gender == "" || gender.replace(" ","").length === 0){
+                    var err = {isError:true, errorText:"Jenis kelamin masih kosong"}
+                    return err
+                } else {
+                    urlText += "&gender=" + gender
+                }
+            }
+            // console.log(urlText)
+        }
+        return urlText
+    }
+    spinner(true)
+    await fetch(urlSend)
+        .then((respon) => respon.json())
+        .then((respon) => {
+            if(respon.ok){
+                console.log(respon)
+                console.log("respon ok..")
+                database.pasienDB = respon.patientData
+                closeEditPatient()
+                homeSearchFilterReset()
+                UpdateAntrian()
+                alert("Perubahan data telah disimpan.")
 
-    var gender = document.querySelector("[name='newreg-gender']:checked").value
-    
-    var ttl = Elem("newReg-ttl").value
-    if(ttl == ""){alert("Tanggal lahir masih kosong"); Elem("newReg-ttl").focus(); return}
-    
-    var alamat = Elem("newReg-alamat").value
-    if(alamat == ""){alert("Alamat masih kosong"); Elem("newReg-alamat").focus(); return}
-    
-    var ayahNama = Elem("newReg-ayah-nama").value; var ayahPek = Elem("newReg-ayah-pekerjaan").value
-    var ibuNama = Elem("newReg-ibu-nama").value; var ibuPek = Elem("newReg-ibu-pekerjaan").value
-    if(ayahNama == "" && ibuNama == ""){alert("Salah satu nama orangtua harus diisi"); Elem("newReg-ayah-nama").focus(); return}
+            }
+            spinner(false)
+        })   
 }
 function ed_manualToTTL(){
     var tahun = Elem('editPat-tahun').value || 0

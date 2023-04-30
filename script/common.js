@@ -1,5 +1,22 @@
 var klinikAPI = "https://script.google.com/macros/s/AKfycbyzJ2kU3ZZXryLNrBFo0jiw-rgdM-R_WIrudW9o7wbrZruBTbfKDsuc3WNQIm9mTJrk/exec"
-var dbAPI = "https://script.google.com/macros/s/AKfycbxypxG_vsqLAaPdmj_n8WBaev6mii5uaeb-Q6qUJMOFzK-Ubffq3m57fQcwDEwDXyVz/exec"
+var dbAPI = "https://script.google.com/macros/s/AKfycbw2I2PQ-8hG3DEnVzVfoWegRlyKKGqIdQ1LEPqWW_tRDYWNXZruZMN2-MF232FYvIJq/exec"
+var IDtoUrl = {
+    noRM : {id:"norm",required:true},
+    namaLengkap: {id:"nama",required:true},
+    gender: {id:"gender",required:true},
+    ttl: {id:"ttl",required:true},
+    alamat : {id:"alamat",required:true}, 
+    ayahNama : {id:"ayah-nama",required:false},
+    ayahPek : {id:"ayah-pekerjaan",required:false},
+    ibuNama : {id:"ibu-nama",required:false},
+    ibuPek : {id:"ibu-pekerjaan",required:false},
+    telp: {id:"telp",required:false},
+    email: {id:"email",required:false},
+    uk: {id:"uk",required:false},
+    bbl: {id:"bbl",required:false},
+    pbl: {id:"pbl",required:false},
+    lkl: {id:"lkl",required:false}
+}
 
 var database = {
     color:{

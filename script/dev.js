@@ -16,15 +16,15 @@ developing(true)
 async function developing(bo){
     if(bo){
         HideDiv()
-        await includeHTML(document.querySelector("body"))
         // Elem("mainFrame").setAttribute("w3-include-html", "/html/dashboard.html")
+        await includeHTML(document.querySelector("body"))
         Elem("login-username").value = "Arga"
         Elem("login-password").value = "radenr0r0"
         await login()
         NavTo(Elem('nav-home'))
-        // setTimeout(function(){
-        //     Elem("antrian-nav-btn-selesai").click()
-        // },1000)
+        setTimeout(function(){
+            Elem("antrianAction_btn").click()
+        },1000)
     }
 }
 

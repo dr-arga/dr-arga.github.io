@@ -31,6 +31,12 @@
     overflow: hidden;
     border-top-left-radius: 10px;
 }
+#pasien-card-relasi{
+    color: red;
+    position: relative;
+    transform: translateY(-10px);
+    margin-bottom: -5px;
+}
 .pasien-card>div:nth-child(1)>div:nth-child(1){
     height: 40px;
     width: calc(100% - 250px);
@@ -243,6 +249,13 @@ div:has(#searching-filter-show:checked) + #advance-filter{
     font-size: 0.8rem;
     margin-bottom: 0;
     color: white;
+}
+.modAn-bd-body-antrian{
+    display: flex;
+    flex-direction: column;
+}
+.modAn-bd-body-antrian > button{
+    margin-bottom: 10px;
 }
 .modAn-bd-body > .row{
     padding-bottom: 5px;

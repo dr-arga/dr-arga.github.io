@@ -78,6 +78,7 @@ async function login(){
                 return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate()
             }
             console.log("geting data from " + dateReq + " " + jamReq)
+        console.log(dbAPI + "?req=onLoad&date="+dateReq+"&jam="+jamReq)
         await fetch(
             dbAPI + "?req=onLoad&date="+dateReq+"&jam="+jamReq
         )

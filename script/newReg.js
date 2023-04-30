@@ -88,7 +88,6 @@ async function newReg_Simpan(antri){
     if(noRM == ""){
         if(confirm("Nomor RM kosong. Buat nomor RM otomatis?")){
             Elem("newPatienRM-btn").click()
-            // autoNoRM(Elem("newReg-norm").value, "new")
         } 
         else {Elem("newReg-norm").focus(); return;}
     }
@@ -126,6 +125,7 @@ async function newReg_Simpan(antri){
         + "&soapJam="+ Elem("newReg-jamAntri").value
         + "&soapStatus=Antri"  
 
+    
     if(antri !== undefined){
         if(!(confirm("Simpan data pasien baru dan lanjut antrian?"))){return}
         if(Elem("newReg-tglAntri").value == "" || Elem("newReg-jamAntri").value == ""){
@@ -137,7 +137,7 @@ async function newReg_Simpan(antri){
         if(!(confirm("Simpan data pasien baru?"))){return}
         var url = dbAPI + "?req=newPatient" + urlPasienSimpan
     }
-
+    console.log(url)
     spinner(true)
     await simpanPasienBaru(url)
     closeNewPatientModal()
